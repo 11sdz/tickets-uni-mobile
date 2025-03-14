@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import UserForm from '../../src/components/navigator/user/UserForm'
 
 const Login = () => {
   return (
     <View>
-      <Text>Login</Text>
+      <UserForm/>
     </View>
   )
 }
