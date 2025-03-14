@@ -1,11 +1,19 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import UserForm from '../../src/components/navigator/user/UserForm'
+import AuthForm from '../../src/components/navigator/user/AuthForm'
 
 const Login = () => {
+
+  const handleLogin = async (email:string, password:string) => {
+    try{
+      console.log(email,password)
+    }catch(e){
+      console.log(e)
+    }
+  }
   return (
     <View>
-      <UserForm/>
+      <AuthForm onSubmit={handleLogin}/>
     </View>
   )
 }

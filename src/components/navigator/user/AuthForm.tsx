@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import React from "react";
 
-const UserForm = () => {
+const AuthForm = ({onSubmit}) => {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
 
@@ -32,7 +32,7 @@ const UserForm = () => {
                         onChangeText={setPassword}
                         secureTextEntry
                     />
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => onSubmit(email, password)}>
                         <Text>Login</Text>
                     </TouchableOpacity>
                 </View>
@@ -41,6 +41,6 @@ const UserForm = () => {
     );
 };
 
-export default UserForm;
+export default AuthForm;
 
 const styles = StyleSheet.create({});
