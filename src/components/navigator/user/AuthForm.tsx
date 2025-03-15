@@ -11,7 +11,11 @@ import {
 } from "react-native";
 import React from "react";
 
-const AuthForm = ({onSubmit}) => {
+type AuthFormProps = {
+    onSubmit: (email: string, password: string) => Promise<void>;
+  };
+
+const AuthForm = ({onSubmit}:AuthFormProps) => {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
 
