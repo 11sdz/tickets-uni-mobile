@@ -3,7 +3,7 @@ import React from "react";
 import AuthForm from "../../src/components/navigator/user/AuthForm";
 import { useRouter } from "expo-router";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../src/store/state/api/apiSlice";
+import { loginUser } from "../../src/store/state/api/authSlice";
 import { RootState, AppDispatch } from "../../src/store/state/store";
 
 const Login = () => {
@@ -31,7 +31,7 @@ const Login = () => {
             </TouchableOpacity>
             {loading && <Text>Loading...</Text>}
             {error && <Text>{error}</Text>}
-            {data && <Text>data</Text>}
+            {data && <Text>{data.message}</Text>}
         </View>
     );
 };

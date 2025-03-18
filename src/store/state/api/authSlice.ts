@@ -1,16 +1,18 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../../../api/axiosInstance";
 
-interface ApiState {
+interface AuthState {
     data: any;
     error: string | null;
     loading: boolean;
+    token: string | null;
 }
 
-const initialState: ApiState = {
+const initialState: AuthState = {
     data: null,
     error: null,
     loading: false,
+    token: null,
 };
 
 // Async thunk for fetching data
@@ -62,7 +64,13 @@ export const loginUser = createAsyncThunk<
 const apiSlice = createSlice({
     name: "api",
     initialState,
-    reducers: {},
+    reducers: {
+        logout: (state) => {
+            state.token = null;
+            state.loading = false;
+            state.error = null;
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(registerUser.pending, (state) => {
@@ -72,6 +80,7 @@ const apiSlice = createSlice({
             .addCase(registerUser.fulfilled, (state, action) => {
                 state.loading = false;
                 state.data = action.payload;
+                state.token = null;
                 state.error = null;
             })
             .addCase(registerUser.rejected, (state, action) => {
@@ -85,8 +94,9 @@ const apiSlice = createSlice({
             .addCase(loginUser.fulfilled, (state, action) => {              
                 state.loading = false;
                 state.data = action.payload;
+                state.token = action.payload.token;
                 state.error = null;
-            }   )
+            })
             .addCase(loginUser.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload || 'unknown error';

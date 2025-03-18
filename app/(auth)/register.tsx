@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import RegisterForm from '../../src/components/navigator/user/RegisterForm'
 import { useDispatch, useSelector } from 'react-redux'
-import { registerUser } from '../../src/store/state/api/apiSlice'
+import { registerUser } from '../../src/store/state/api/authSlice'
 import { RootState, AppDispatch } from '../../src/store/state/store'
 
 const Register = () => {
@@ -24,7 +24,7 @@ const Register = () => {
       <RegisterForm onSubmit={handleRegister}/>
       {loading && <Text>Loading...</Text>}
       {error && <Text>{error}</Text>}
-      {data && <Text>data</Text>}
+      {data && <Text>{data.message}</Text>}
     </View>
   )
 }

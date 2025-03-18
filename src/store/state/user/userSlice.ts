@@ -4,6 +4,9 @@ interface UserState {
     uid: string;
     isSignedIn: boolean;
     userName: string;
+    firstName: string;
+    lastName: string;
+    role:string;
     userEmail: string;
 }
 
@@ -11,6 +14,9 @@ const initialState: UserState = {
     uid:'',
     isSignedIn: false,
     userName: '',
+    firstName:'',
+    lastName:'',
+    role:'',
     userEmail: '',
 }
 
