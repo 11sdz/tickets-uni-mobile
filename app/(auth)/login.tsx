@@ -8,8 +8,8 @@ import { RootState, AppDispatch } from "../../src/store/state/store";
 
 const Login = () => {
     const router = useRouter();
-    const { loading, error, data } = useSelector(
-        (state: RootState) => state.api
+    const { loading, error, data ,token} = useSelector(
+        (state: RootState) => state.auth
     );
     const dispatch: AppDispatch = useDispatch();
 
@@ -31,7 +31,7 @@ const Login = () => {
             </TouchableOpacity>
             {loading && <Text>Loading...</Text>}
             {error && <Text>{error}</Text>}
-            {data && <Text>{data.message}</Text>}
+            {data && token && <Text>{data.message} {token}</Text>}
         </View>
     );
 };

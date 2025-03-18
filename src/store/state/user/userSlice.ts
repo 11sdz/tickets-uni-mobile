@@ -1,46 +1,88 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice , createAsyncThunk } from '@reduxjs/toolkit';
+import axiosInstance from '../../../api/axiosInstance';
 
-interface UserState {
+interface UserData {
     uid: string;
-    isSignedIn: boolean;
     userName: string;
+    userEmail: string;
     firstName: string;
     lastName: string;
-    role:string;
-    userEmail: string;
+    role: string;
+}
+
+interface UserState {
+    userData: UserData | null;
+    loading: boolean;
+    error: string | null;
 }
 
 const initialState: UserState = {
-    uid:'',
-    isSignedIn: false,
-    userName: '',
-    firstName:'',
-    lastName:'',
-    role:'',
-    userEmail: '',
+    userData: null,
+    loading: false,
+    error: null,
 }
+
+
+export const fetchUserData = createAsyncThunk(
+    'user/fetchUserData',
+    async (_,{rejectWithValue}) => {
+        try{
+        const response = await axiosInstance.get(`/user/profile`);
+        return response.data;
+        }catch(error:any){
+            return rejectWithValue(
+                error.response?.data?.message ||
+                'Something went wrong while fetching user data'
+            );
+        }
+    }
+);
 
 const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        signIn: (state, action) => {
-            state.uid = action.payload.uid;
-            state.isSignedIn = true;
-            state.userName = action.payload.userName;
-            state.userEmail = action.payload.userEmail;
+        clearUserData: (state) => {
+            if (state.userData) {
+                state.userData.uid = '';
+                state.userData.userName = '';
+                state.userData.userEmail = '';
+                state.userData.firstName = '';
+                state.userData.lastName = '';
+                state.userData.role = '';
+            }
+            state.loading = false;
+            state.error = null;
+            state.loading = false;
+            state.error = null;
         },
-        signOut: (state) => {
-            state.uid = '';
-            state.isSignedIn = false;
-            state.userName = '';
-            state.userEmail = '';
-        },
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchUserData.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchUserData.fulfilled, (state, action) => {
+                state.loading = false;
+                state.userData = {
+                    uid: action.payload.uid,
+                    userName: action.payload.userName,
+                    userEmail: action.payload.userEmail,
+                    firstName: action.payload.firstName,
+                    lastName: action.payload.lastName,
+                    role: action.payload.role,
+                };
+            })
+            .addCase(fetchUserData.rejected, (state, action) => {
+                state.loading = false;
+                state.error = typeof action.payload === "string" ? action.payload : (action.payload as Error).message ?? "unknown error";
+            });
     },
 })
 
 export default userSlice.reducer; // Export the reducer to be used in the store
-export const { signIn, signOut } = userSlice.actions; // Export the actions to be used in components
+export const { clearUserData } = userSlice.actions; // Export the actions to be used in components
 
 
 

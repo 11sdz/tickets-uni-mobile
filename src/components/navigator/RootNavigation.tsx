@@ -6,15 +6,16 @@ import { Stack , useRouter } from "expo-router";
 
 const RootNavigation = () => {
     const router = useRouter();
-    const isSignedIn = useSelector((state: RootState) => state.user.isSignedIn);
+    const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+    console.log(isAuthenticated, "isAuthenticated")
 
     useEffect(() => {
-        if(isSignedIn){
+        if(isAuthenticated){
             router.replace("/(tabs)/home");
         }else{
             router.replace("/(auth)/login");
         }
-    }, [isSignedIn]);
+    }, [isAuthenticated]);
 
 
   return (

@@ -6,7 +6,7 @@ import { registerUser } from '../../src/store/state/api/authSlice'
 import { RootState, AppDispatch } from '../../src/store/state/store'
 
 const Register = () => {
-  const {loading, error ,data} = useSelector((state:RootState) => state.api)
+  const {loading, error ,data} = useSelector((state:RootState) => state.auth)
   const dispatch: AppDispatch = useDispatch();
 
   const handleRegister = async (username:string, email:string, password:string, firstName:string, lastName:string, passkey:string) => {

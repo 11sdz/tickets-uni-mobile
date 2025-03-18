@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axiosInstance from "../../../api/axiosInstance";
+import axiosInstance , {setAuthToken} from "../../../api/axiosInstance";
 
 interface AuthState {
     data: any;
     error: string | null;
     loading: boolean;
     token: string | null;
+    isAuthenticated: boolean;
 }
 
 const initialState: AuthState = {
@@ -13,6 +14,7 @@ const initialState: AuthState = {
     error: null,
     loading: false,
     token: null,
+    isAuthenticated: false,
 };
 
 // Async thunk for fetching data
@@ -61,15 +63,19 @@ export const loginUser = createAsyncThunk<
     }
 )
 
-const apiSlice = createSlice({
-    name: "api",
+const authSlice = createSlice({
+    name: "auth",
     initialState,
     reducers: {
         logout: (state) => {
             state.token = null;
             state.loading = false;
             state.error = null;
+            state.data = null;
+            state.isAuthenticated = false;
+            setAuthToken(null);
         },
+        
     },
     extraReducers: (builder) => {
         builder
@@ -85,7 +91,7 @@ const apiSlice = createSlice({
             })
             .addCase(registerUser.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload || 'unknown error';
+                state.error = action.payload ?? 'unknown error';
             })
             .addCase(loginUser.pending, (state) => {
                 state.loading = true;
@@ -96,12 +102,14 @@ const apiSlice = createSlice({
                 state.data = action.payload;
                 state.token = action.payload.token;
                 state.error = null;
+                state.isAuthenticated = true;
+                setAuthToken(action.payload.token);
             })
             .addCase(loginUser.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload || 'unknown error';
+                state.error = action.payload ?? 'unknown error';
             });
     },
 })
 
-export default apiSlice.reducer;
+export default authSlice.reducer;
