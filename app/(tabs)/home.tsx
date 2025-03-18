@@ -5,7 +5,7 @@ import { RootState, AppDispatch } from "../../src/store/state/store";
 import { fetchTicketData } from "../../src/store/state/tickets/ticketSlice";
 
 const Home = () => {
-    const { loading, error, ticketData} = useSelector(
+    const { loading, error, tickets: ticketData} = useSelector(
         (state: RootState) => state.tickets
     );
     const dispatch: AppDispatch = useDispatch();
@@ -28,6 +28,12 @@ const Home = () => {
   <Text>Home</Text>
   {loading && <Text>Loading...</Text>}
   {error && <Text>{error}</Text>}
+  {ticketData.map((ticket) => (
+    <View key={ticket.id}>
+      <Text>{ticket.title}</Text>
+      <Text>{ticket.text}</Text>
+    </View>
+  ))}
 </View>
   )
 }
