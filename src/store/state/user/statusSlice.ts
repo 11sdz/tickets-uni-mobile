@@ -1,10 +1,10 @@
-import  {createSlice , createAsyncThunk} from '@reduxjs/toolkit';
-import axiosInstance from '../../../api/axiosInstance';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axiosInstance from "../../../api/axiosInstance";
 
 interface StatusData {
     status: string;
     userId: string;
-    lastUpdated: Date | null;
+    lastUpdated: string | null;
 }
 
 interface StatusState {
@@ -17,25 +17,46 @@ const initialState: StatusState = {
     StatusData: [],
     loading: false,
     error: null,
-}
+};
 
 export const fetchStatusData = createAsyncThunk(
-    'status/fetchStatusData',
-    async (_,{rejectWithValue}) => {
-        try{
-        const response = await axiosInstance.get(`/userStatus`);
-        return response.data;
-        }catch(error:any){
+    "status/fetchStatusData",
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await axiosInstance.get(`/userStatus`);
+            return response.data;
+        } catch (error: any) {
             return rejectWithValue(
                 error.response?.data?.message ||
-                'Something went wrong while fetching status data'
+                    "Something went wrong while fetching status data"
+            );
+        }
+    }
+);
+
+export const updateStatus = createAsyncThunk(
+    "status/updateStatus",
+    async (
+        statusData: { status: string; userId: string, lastUpdated: string },
+        { rejectWithValue }
+    ) => {
+        try {
+            const response = await axiosInstance.put(
+                `/userStatus/update`,
+                statusData
+            );
+            return response.data;
+        } catch (error: any) {
+            return rejectWithValue(
+                error.response?.data?.message ||
+                    "Something went wrong while updating status"
             );
         }
     }
 );
 
 const statusSlice = createSlice({
-    name: 'status',
+    name: "status",
     initialState,
     reducers: {
         // Clear status data and reset loading and error states
@@ -46,12 +67,18 @@ const statusSlice = createSlice({
         },
         setStatus: (state, action) => {
             const { status, userId } = action.payload;
-            const existingStatus = state.StatusData?.find(data => data.userId === userId);
+            const existingStatus = state.StatusData?.find(
+                (data) => data.userId === userId
+            );
             if (existingStatus) {
                 existingStatus.status = status;
-                existingStatus.lastUpdated = new Date();
+                existingStatus.lastUpdated = new Date().toISOString();
             } else {
-                state.StatusData?.push({ status, userId, lastUpdated: new Date() });
+                state.StatusData?.push({
+                    status,
+                    userId,
+                    lastUpdated: new Date().toISOString(),
+                });
             }
         },
     },
@@ -68,6 +95,23 @@ const statusSlice = createSlice({
             .addCase(fetchStatusData.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
+            })
+            // Refactor: Call setStatus reducer when updateStatus is fulfilled
+            .addCase(updateStatus.fulfilled, (state, action) => {
+                const { userId, status } = action.payload;
+                // Dispatch setStatus to update the specific user's status
+                state.StatusData?.forEach((statusData) => {
+                    if (statusData.userId === userId) {
+                        // Dispatching setStatus to update status
+                        if (state.StatusData) {
+                            state.StatusData = state.StatusData.map((data) =>
+                                data.userId === userId
+                                    ? { ...data, status, lastUpdated: new Date().toISOString() }
+                                    : data
+                            );
+                        }
+                    }
+                });
             });
     },
 });

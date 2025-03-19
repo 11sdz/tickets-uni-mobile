@@ -3,6 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../src/store/state/store";
 import { fetchTicketData } from "../../src/store/state/tickets/ticketSlice";
+import UpdateStatusButton from "../../src/components/navigator/status/UpdateStatusButton";
 
 const Home = () => {
     const {
@@ -29,6 +30,7 @@ const Home = () => {
             <TouchableOpacity onPress={handleGetTickets}>
                 <Text>Get Tickets</Text>
             </TouchableOpacity>
+            <UpdateStatusButton/>
             <Text>Home</Text>
             {loading && <Text>Loading...</Text>}
             {error && <Text>{error}</Text>}
