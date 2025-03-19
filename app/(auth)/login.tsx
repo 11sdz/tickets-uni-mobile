@@ -6,15 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../src/store/state/api/authSlice";
 import { RootState, AppDispatch } from "../../src/store/state/store";
 import { fetchUserData } from "../../src/store/state/user/userSlice";
+import { fetchStatusData } from "../../src/store/state/user/statusSlice";
 
 const Login = () => {
     const router = useRouter();
     const { loading, error, data ,token} = useSelector(
         (state: RootState) => state.auth
-    );
-
-    const { userData } = useSelector(
-        (state: RootState) => state.user
     );
 
     const dispatch: AppDispatch = useDispatch();
@@ -26,6 +23,7 @@ const Login = () => {
 
             if (loginResponse) {
                 dispatch(fetchUserData());
+                dispatch(fetchStatusData());
             }
         } catch (e) {
             console.log(e);
