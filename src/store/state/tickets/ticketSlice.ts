@@ -16,9 +16,10 @@ const initialState: TicketState = {
 
 export const fetchTicketData = createAsyncThunk(
     'ticket/fetchTicketData',
-    async (_, { rejectWithValue }) => {
+    async ({ agent }: { agent?: string }, { rejectWithValue }) => {
         try {
-            const response = await axiosInstance.get(`/tickets`); // Adjust the endpoint as needed
+            const endpoint = agent ? `/tickets?agent=${agent}` : `/tickets`; // Adjust the endpoint as needed
+            const response = await axiosInstance.get(endpoint); // Adjust the endpoint as needed
             return response.data;
         } catch (error: any) {
             return rejectWithValue(

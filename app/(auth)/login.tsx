@@ -5,19 +5,28 @@ import { useRouter } from "expo-router";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../src/store/state/api/authSlice";
 import { RootState, AppDispatch } from "../../src/store/state/store";
+import { fetchUserData } from "../../src/store/state/user/userSlice";
 
 const Login = () => {
     const router = useRouter();
     const { loading, error, data ,token} = useSelector(
         (state: RootState) => state.auth
     );
+
+    const { userData } = useSelector(
+        (state: RootState) => state.user
+    );
+
     const dispatch: AppDispatch = useDispatch();
 
     const handleLogin = async (username: string, password: string) => {
         try {
             // Handle registration logic here
-            dispatch(loginUser({ username, password }));
-            console.log(username, password);
+            const loginResponse = await dispatch(loginUser({ username, password })).unwrap();
+
+            if (loginResponse) {
+                dispatch(fetchUserData());
+            }
         } catch (e) {
             console.log(e);
         }

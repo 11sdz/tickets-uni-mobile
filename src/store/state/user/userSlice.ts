@@ -27,7 +27,7 @@ export const fetchUserData = createAsyncThunk(
     'user/fetchUserData',
     async (_,{rejectWithValue}) => {
         try{
-        const response = await axiosInstance.get(`/user/profile`);
+        const response = await axiosInstance.get(`/user`);
         return response.data;
         }catch(error:any){
             return rejectWithValue(
@@ -42,17 +42,9 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
+        // Clear user data and reset loading and error states
         clearUserData: (state) => {
-            if (state.userData) {
-                state.userData.uid = '';
-                state.userData.userName = '';
-                state.userData.userEmail = '';
-                state.userData.firstName = '';
-                state.userData.lastName = '';
-                state.userData.role = '';
-            }
-            state.loading = false;
-            state.error = null;
+            state.userData = null;
             state.loading = false;
             state.error = null;
         },
@@ -65,21 +57,16 @@ const userSlice = createSlice({
             })
             .addCase(fetchUserData.fulfilled, (state, action) => {
                 state.loading = false;
-                state.userData = {
-                    uid: action.payload.uid,
-                    userName: action.payload.userName,
-                    userEmail: action.payload.userEmail,
-                    firstName: action.payload.firstName,
-                    lastName: action.payload.lastName,
-                    role: action.payload.role,
-                };
+                state.userData = action.payload; // Directly set the user data
             })
             .addCase(fetchUserData.rejected, (state, action) => {
                 state.loading = false;
-                state.error = typeof action.payload === "string" ? action.payload : (action.payload as Error).message ?? "unknown error";
+                state.error = typeof action.payload === 'string'
+                    ? action.payload
+                    : (action.payload as Error).message ?? 'Unknown error';
             });
     },
-})
+});
 
 export default userSlice.reducer; // Export the reducer to be used in the store
 export const { clearUserData } = userSlice.actions; // Export the actions to be used in components
