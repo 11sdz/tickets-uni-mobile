@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../../store/state/store";
 import { updateStatus } from "../../../store/state/user/statusSlice";
@@ -17,9 +17,13 @@ const UpdateStatusButton = () => {
         (data) => data.userId === userData?._id
     );
 
-    const [status, setStatus] = useState<string>(
-        userStatus?.status ?? "Error getting user status"
-    );
+    const [status, setStatus] = useState<string|null>(null)
+
+    useEffect(()=>{
+        if(userStatus){
+            setStatus(userStatus.status)
+        }
+    }, [userStatus])
 
     const handleStatusUpdate = async () => {
         if (userData?._id) {
