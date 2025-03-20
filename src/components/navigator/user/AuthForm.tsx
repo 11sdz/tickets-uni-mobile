@@ -10,6 +10,7 @@ import {
     Text,
 } from "react-native";
 import React from "react";
+import { textInputStyles } from "./textInputs";
 
 type AuthFormProps = {
     onSubmit: (email: string, password: string) => Promise<void>;
@@ -25,12 +26,12 @@ const AuthForm = ({onSubmit}:AuthFormProps) => {
         >
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View>
-                    <TextInput
+                    <TextInput style={[textInputStyles.input]}
                         placeholder="Email"
                         value={email}
                         onChangeText={setEmail}
                     />
-                    <TextInput
+                    <TextInput style={[textInputStyles.input]}
                         placeholder="Password"
                         value={password}
                         onChangeText={setPassword}

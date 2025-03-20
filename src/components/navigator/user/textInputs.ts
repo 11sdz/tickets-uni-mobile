@@ -4,11 +4,18 @@ import { Colors, Spacing, Typography } from "../../../styles";
 export const textInputStyles = StyleSheet.create({
     input:{
         borderWidth: 1,
-        borderColor: Colors.colors.border,
-        borderRadius: 8,
+        borderRadius: 10,
+        borderColor: Colors.colors.shade,
         padding: Spacing.spacing.m,
         marginBottom: Spacing.spacing.m,
-        fontSize: Typography.fontSizes.medium,
-        color: Colors.colors.text,
+        backgroundColor: '#FFF',//Colors.colors.primary,
+        fontSize: Typography.typography.body.fontSize,
+        lineHeight: Typography.typography.body.lineHeight,
+        fontWeight: Typography.typography.body.fontWeight as any,
+        elevation: 10,
+        shadowColor: Colors.colors.shade,
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 1,
+        shadowRadius: 6,
     }
 });

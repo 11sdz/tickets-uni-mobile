@@ -1,6 +1,7 @@
 export const colors = {
-    primary: '#3498db',
-    secondary: '#2ecc71',
-    accent: '#e74c3c',
-    background: '#ecf0f1',
+    primary: '#ADE8F4',
+    secondary: '#023E8A',
+    background: '#48CAE4',
+    tint: '#CAF0F8',
+    shade: '#03045E'
 }; // Add more colors as needed

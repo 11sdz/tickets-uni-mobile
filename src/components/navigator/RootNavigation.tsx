@@ -1,28 +1,34 @@
-import React , {useEffect} from 'react'
-import { useSelector } from 'react-redux';
-import {RootState} from "../../store/state/store";
-import { Stack , useRouter } from "expo-router";
-
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/state/store";
+import { Stack, useRouter } from "expo-router";
+import { Colors } from "../../styles";
 
 const RootNavigation = () => {
     const router = useRouter();
-    const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
-    console.log(isAuthenticated, "isAuthenticated")
+    const isAuthenticated = useSelector(
+        (state: RootState) => state.auth.isAuthenticated
+    );
+    console.log(isAuthenticated, "isAuthenticated");
 
     useEffect(() => {
-        if(isAuthenticated){
+        if (isAuthenticated) {
             router.replace("/(tabs)/home");
-        }else{
+        } else {
             router.replace("/(auth)/login");
         }
     }, [isAuthenticated]);
 
+    return (
+        <Stack
+            screenOptions={{
+                headerTintColor: Colors.colors.tint,
+                headerStyle: { backgroundColor: Colors.colors.shade },
+            }}
+        >
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        </Stack>
+    );
+};
 
-  return (
-    <Stack>
-        <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
-    </Stack>
-  )
-}
-
-export default RootNavigation
+export default RootNavigation;

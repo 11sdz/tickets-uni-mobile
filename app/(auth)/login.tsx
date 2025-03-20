@@ -7,6 +7,7 @@ import { loginUser } from "../../src/store/state/api/authSlice";
 import { RootState, AppDispatch } from "../../src/store/state/store";
 import { fetchUserData } from "../../src/store/state/user/userSlice";
 import { fetchStatusData } from "../../src/store/state/user/statusSlice";
+import { Colors, Spacing } from "../../src/styles";
 
 const Login = () => {
     const router = useRouter();
@@ -31,7 +32,7 @@ const Login = () => {
     };
 
     return (
-        <View>
+        <View style={styles.container}>
             <AuthForm onSubmit={handleLogin} />
             <TouchableOpacity onPress={() => router.push("/(auth)/register")}>
                 <Text>Register</Text>
@@ -45,4 +46,10 @@ const Login = () => {
 
 export default Login;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    container:{
+        flex: 1,
+        backgroundColor: Colors.colors.background,
+        padding: Spacing.spacing.m,
+    }
+});
