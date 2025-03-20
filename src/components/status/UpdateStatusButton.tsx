@@ -1,8 +1,8 @@
 import { StyleSheet, Text, TouchableOpacity} from "react-native";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState, AppDispatch } from "../../../store/state/store";
-import { updateStatus } from "../../../store/state/user/statusSlice";
+import { RootState, AppDispatch } from "../../store/state/store";
+import { updateStatus } from "../../store/state/user/statusSlice";
 
 const UpdateStatusButton = () => {
     const statusData = useSelector(

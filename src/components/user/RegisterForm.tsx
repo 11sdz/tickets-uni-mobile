@@ -10,6 +10,8 @@ import {
     View,
 } from "react-native";
 import React from "react";
+import { textInputStyles } from "./textInputs";
+import Button from "../buttons/Button";
 
 interface RegisterFormProps {
     onSubmit: (
@@ -57,46 +59,44 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View>
                     <Text>RegisterForm</Text>
-                    <TextInput
+                    <TextInput style={textInputStyles.input}
                         placeholder="User Name"
                         value={userName}
                         onChangeText={setUserName}
                     />
-                    <TextInput
+                    <TextInput style={textInputStyles.input}
                         placeholder="Email"
                         value={email}
                         onChangeText={setEmail}
                     />
-                    <TextInput
+                    <TextInput style={textInputStyles.input}
                         placeholder="Password"
                         value={password}
                         onChangeText={setPassword}
                         secureTextEntry
                     />
-                    <TextInput
+                    <TextInput style={textInputStyles.input}
                         placeholder="Confirm Password"
                         value={confirmPassword}
                         onChangeText={setConfirmPassword}
                         secureTextEntry
                     />
-                    <TextInput
+                    <TextInput style={textInputStyles.input}
                         placeholder="First Name"
                         value={firstName}
                         onChangeText={setFirstName}
                     />
-                    <TextInput
+                    <TextInput style={textInputStyles.input}
                         placeholder="Last Name"
                         value={lastName}
                         onChangeText={setLastName}
                     />
-                    <TextInput
+                    <TextInput style={textInputStyles.input}
                         placeholder="Passkey"
                         value={passkey}
                         onChangeText={setPasskey}
                     />
-                    <TouchableOpacity onPress={() => handleVerify()}>
-                        <Text>Register</Text>
-                    </TouchableOpacity>
+                    <Button buttonText="Create account" buttonSize="medium" onPress={() => handleVerify()} />
                 </View>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>

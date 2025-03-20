@@ -1,13 +1,13 @@
-import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import AuthForm from "../../src/components/navigator/user/AuthForm";
+import AuthForm from "../../src/components/user/AuthForm";
 import { useRouter } from "expo-router";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../src/store/state/api/authSlice";
 import { RootState, AppDispatch } from "../../src/store/state/store";
 import { fetchUserData } from "../../src/store/state/user/userSlice";
 import { fetchStatusData } from "../../src/store/state/user/statusSlice";
-import { Buttons, Colors, Spacing } from "../../src/styles";
+import {  Colors, Spacing } from "../../src/styles";
 import Button from "../../src/components/buttons/Button";
 
 const Login = () => {

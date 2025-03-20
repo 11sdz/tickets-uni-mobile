@@ -38,7 +38,7 @@ const AuthForm = ({onSubmit}:AuthFormProps) => {
                         onChangeText={setPassword}
                         secureTextEntry
                     />
-                    <Button buttonText="Login" buttonSize="large" onPress={() => onSubmit(email, password)} />
+                    <Button buttonText="Login" buttonSize="medium" onPress={() => onSubmit(email, password)} />
                 </View>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>

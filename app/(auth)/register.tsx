@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import RegisterForm from '../../src/components/navigator/user/RegisterForm'
+import RegisterForm from '../../src/components/user/RegisterForm'
 import { useDispatch, useSelector } from 'react-redux'
 import { registerUser } from '../../src/store/state/api/authSlice'
 import { RootState, AppDispatch } from '../../src/store/state/store'
+import { Colors, Spacing } from '../../src/styles'
 
 const Register = () => {
   const {loading, error ,data} = useSelector((state:RootState) => state.auth)
@@ -20,7 +21,7 @@ const Register = () => {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <RegisterForm onSubmit={handleRegister}/>
       {loading && <Text>Loading...</Text>}
       {error && <Text>{error}</Text>}
@@ -31,4 +32,10 @@ const Register = () => {
 
 export default Register
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container:{
+          flex: 1,
+          backgroundColor: Colors.colors.background,
+          padding: Spacing.spacing.m,
+      }
+})

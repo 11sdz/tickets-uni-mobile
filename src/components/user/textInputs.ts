@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { Colors, Spacing, Typography } from "../../../styles";
+import { Colors, Spacing, Typography } from "../../styles/index";
 
 export const textInputStyles = StyleSheet.create({
     input:{

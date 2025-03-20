@@ -3,7 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../src/store/state/store";
 import { fetchTicketData } from "../../src/store/state/tickets/ticketSlice";
-import UpdateStatusButton from "../../src/components/navigator/status/UpdateStatusButton";
+import UpdateStatusButton from "../../src/components/status/UpdateStatusButton";
 import { Buttons, Colors, Spacing } from "../../src/styles";
 
 const Home = () => {
