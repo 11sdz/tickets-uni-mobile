@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View} from "react-native";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../src/store/state/store";
 import { fetchTicketData } from "../../src/store/state/tickets/ticketSlice";
 import UpdateStatusButton from "../../src/components/status/UpdateStatusButton";
 import { Buttons, Colors, Spacing } from "../../src/styles";
+import Button from "../../src/components/buttons/Button";
 
 const Home = () => {
     const {
@@ -25,9 +26,7 @@ const Home = () => {
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={handleGetTickets} style={styles.refreshTicketsButton}>
-                <Text>Get Tickets</Text>
-            </TouchableOpacity>
+            <Button buttonText="Refresh tickets" buttonSize="medium" onPress={handleGetTickets} />
             <UpdateStatusButton/>
             <Text>Home</Text>
             {loading && <Text>Loading...</Text>}

@@ -1,4 +1,4 @@
-import { Dimensions, PixelRatio } from "react-native";
+import { Dimensions, PixelRatio, TextStyle } from "react-native";
 
 const { width } = Dimensions.get("window");
 
@@ -19,22 +19,22 @@ export const typography = {
     },
     subheading: {
         fontSize: scaleFont(20),
-        fontWeight: "600",
+        fontWeight: "600" as TextStyle["fontWeight"],
         lineHeight: scaleFont(28),
     },
     body: {
         fontSize: scaleFont(16),
-        fontWeight: "400",
+        fontWeight: "400" as TextStyle["fontWeight"],
         lineHeight: scaleFont(24),
     },
     caption: {
         fontSize: scaleFont(14),
-        fontWeight: "300",
+        fontWeight: "300" as TextStyle["fontWeight"],
         lineHeight: scaleFont(20),
     },
     buttonText: {
         fontSize: scaleFont(16),
-        fontWeight: "600",
+        fontWeight: "600" as TextStyle["fontWeight"],
         lineHeight: scaleFont(22),
         textTransform: "uppercase",
     },

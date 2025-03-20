@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { Buttons, Colors } from '../../styles'
+import { Buttons, Colors, Typography } from '../../styles'
 
 
 interface ButtonProps {
@@ -13,7 +13,7 @@ const Button = ({ buttonText, buttonSize, onPress }: ButtonProps) => {
 
   return (
     <TouchableOpacity onPress={onPress} style={[styles.button, Buttons.buttonSizes[buttonSize]]}>
-      <Text>{buttonText}</Text>
+      <Text style={styles.text}>{buttonText}</Text>
     </TouchableOpacity>
   )
 }
@@ -32,5 +32,9 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.3,
     shadowRadius: 4,
+  },
+  text:{
+    ...Typography.typography.body,
+    textAlign: 'center',
   }
 })
