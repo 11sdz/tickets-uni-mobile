@@ -7,7 +7,8 @@ import { loginUser } from "../../src/store/state/api/authSlice";
 import { RootState, AppDispatch } from "../../src/store/state/store";
 import { fetchUserData } from "../../src/store/state/user/userSlice";
 import { fetchStatusData } from "../../src/store/state/user/statusSlice";
-import { Colors, Spacing } from "../../src/styles";
+import { Buttons, Colors, Spacing } from "../../src/styles";
+import Button from "../../src/components/buttons/Button";
 
 const Login = () => {
     const router = useRouter();
@@ -34,12 +35,10 @@ const Login = () => {
     return (
         <View style={styles.container}>
             <AuthForm onSubmit={handleLogin} />
-            <TouchableOpacity onPress={() => router.push("/(auth)/register")}>
-                <Text>Register</Text>
-            </TouchableOpacity>
+            <Button buttonText="Register now" buttonSize="medium" onPress={() => router.push("/(auth)/register")} />
             {loading && <Text>Loading...</Text>}
             {error && <Text>{error}</Text>}
-            {data && token && <Text>{data.message} {token}</Text>}
+            {data && token && <Text>{data.message} {token} </Text>}
         </View>
     );
 };

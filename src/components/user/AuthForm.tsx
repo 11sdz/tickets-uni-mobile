@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import React from "react";
 import { textInputStyles } from "./textInputs";
+import Button from "../buttons/Button";
 
 type AuthFormProps = {
     onSubmit: (email: string, password: string) => Promise<void>;
@@ -37,9 +38,7 @@ const AuthForm = ({onSubmit}:AuthFormProps) => {
                         onChangeText={setPassword}
                         secureTextEntry
                     />
-                    <TouchableOpacity onPress={() => onSubmit(email, password)}>
-                        <Text>Login</Text>
-                    </TouchableOpacity>
+                    <Button buttonText="Login" buttonSize="large" onPress={() => onSubmit(email, password)} />
                 </View>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
