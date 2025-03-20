@@ -13,7 +13,7 @@ const RootNavigation = () => {
 
     useEffect(() => {
         if (isAuthenticated) {
-            router.replace("/(tabs)");
+            router.replace("/(tabs)/home");
         } else {
             router.replace("/(auth)/login");
         }

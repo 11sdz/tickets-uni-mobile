@@ -6,6 +6,11 @@ import { fetchTicketData } from "../../src/store/state/tickets/ticketSlice";
 import UpdateStatusButton from "../../src/components/status/UpdateStatusButton";
 import { Buttons, Colors, Spacing } from "../../src/styles";
 import Button from "../../src/components/buttons/Button";
+import { FlatList } from "react-native-gesture-handler";
+import TicketCard from "../../src/components/ticket/TicketCard";
+import { router } from "expo-router";
+
+const ItemSeparator = () => <View style={{ height: 2, backgroundColor: Colors.colors.shade }} />;
 
 const Home = () => {
     const {
@@ -24,6 +29,11 @@ const Home = () => {
         }
     };
 
+    const handleTicketPress = (ticketId: string) => {
+        console.log("Open ticket id:",ticketId);
+        router.push(`/ticket/${ticketId}`);
+    };
+
     return (
         <View style={styles.container}>
             <Button buttonText="Refresh tickets" buttonSize="medium" onPress={handleGetTickets} />
@@ -31,12 +41,11 @@ const Home = () => {
             <Text>Home</Text>
             {loading && <Text>Loading...</Text>}
             {error && <Text>{error}</Text>}
-            {ticketData.map((ticket) => (
-                <View key={ticket._id}>
-                    <Text>{ticket.title}</Text>
-                    <Text>{ticket.text}</Text>
-                </View>
-            ))}
+            <FlatList
+                data={ticketData}
+                ItemSeparatorComponent={ItemSeparator}
+                renderItem={({ item }) => <TicketCard ticketData={item} onPress={handleTicketPress} />}
+            />
         </View>
     );
 };
