@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../src/store/state/store";
 import { fetchTicketData } from "../../src/store/state/tickets/ticketSlice";
 import UpdateStatusButton from "../../src/components/navigator/status/UpdateStatusButton";
+import { Buttons, Colors, Spacing } from "../../src/styles";
 
 const Home = () => {
     const {
@@ -12,9 +13,6 @@ const Home = () => {
         tickets: ticketData,
     } = useSelector((state: RootState) => state.tickets);
     const dispatch: AppDispatch = useDispatch();
-
-    const {userData} = useSelector((state: RootState) => state.user);
-    console.log(userData, "userData\home");
 
     const handleGetTickets = async () => {
         try {
@@ -26,8 +24,8 @@ const Home = () => {
     };
 
     return (
-        <View>
-            <TouchableOpacity onPress={handleGetTickets}>
+        <View style={styles.container}>
+            <TouchableOpacity onPress={handleGetTickets} style={styles.refreshTicketsButton}>
                 <Text>Get Tickets</Text>
             </TouchableOpacity>
             <UpdateStatusButton/>
@@ -46,4 +44,16 @@ const Home = () => {
 
 export default Home;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: Colors.colors.background,
+        padding: Spacing.spacing.m,
+    },
+    refreshTicketsButton: {
+        ...Buttons.buttonSizes.medium,
+        ...Buttons.smallRounded,
+        backgroundColor: Colors.colors.primary,
+    },
+
+});

@@ -1,14 +1,15 @@
 export interface TicketData {
+    _id: string; // Add this if your API returns _id
     ticketId: string;
-    ticketTitle: string;
-    ticketLocation: string;
-    ticketOfficeNumber: string;
-    ticketMobileNumber: string;
-    ticketPersonalName: string;
-    ticketPersonalPosition: string;
-    ticketText: string;
-    ticketStatus: string;
-    ticketAgent: string;
-    ticketCreatedAt: string;
-    ticketOpenedAt: string;
+    title: string;
+    location: string;
+    officeNumber: string;
+    mobileNumber: string;
+    personalName: string;
+    personalPosition: string;
+    text: string;
+    status: string;
+    agent: string;
+    createdAt: string;
+    openedAt: string;
 }
