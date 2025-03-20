@@ -26,7 +26,7 @@ const AuthForm = ({onSubmit}:AuthFormProps) => {
             behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View>
+                <View style={{ paddingVertical: 10 }}>
                     <TextInput style={[textInputStyles.input]}
                         placeholder="Email"
                         value={email}
@@ -38,7 +38,7 @@ const AuthForm = ({onSubmit}:AuthFormProps) => {
                         onChangeText={setPassword}
                         secureTextEntry
                     />
-                    <Button buttonText="Login" buttonSize="medium" onPress={() => onSubmit(email, password)} />
+                    <Button buttonText="Login" buttonSize="large" onPress={() => onSubmit(email, password)} />
                 </View>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>

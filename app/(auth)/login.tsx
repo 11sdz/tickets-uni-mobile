@@ -35,7 +35,7 @@ const Login = () => {
     return (
         <View style={styles.container}>
             <AuthForm onSubmit={handleLogin} />
-            <Button buttonText="Register now" buttonSize="medium" onPress={() => router.push("/(auth)/register")} />
+            <Button buttonText="Register now" buttonSize="large" onPress={() => router.push("/(auth)/register")} />
             {loading && <Text>Loading...</Text>}
             {error && <Text>{error}</Text>}
             {data && token && <Text>{data.message} {token} </Text>}

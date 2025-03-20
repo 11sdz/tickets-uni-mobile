@@ -13,7 +13,7 @@ const RootNavigation = () => {
 
     useEffect(() => {
         if (isAuthenticated) {
-            router.replace("/(tabs)/home");
+            router.replace("/(tabs)");
         } else {
             router.replace("/(auth)/login");
         }
@@ -27,6 +27,7 @@ const RootNavigation = () => {
             }}
         >
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         </Stack>
     );
 };
