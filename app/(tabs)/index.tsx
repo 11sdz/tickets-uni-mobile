@@ -1,6 +1,5 @@
-import { StyleSheet, Text, View , TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View  } from 'react-native'
 import React from 'react'
-import { router } from 'expo-router'
 
 const index = () => {
   return (

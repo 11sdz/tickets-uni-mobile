@@ -45,7 +45,7 @@ const UpdateStatusButton = () => {
     return (
         <TouchableOpacity onPress={() => handleStatusUpdate()}>
             <Text>{status}</Text>
-            <Text>UpdateStatusButton</Text>
+            <Text>העבר למצב עובד</Text>
         </TouchableOpacity>
     );
 };

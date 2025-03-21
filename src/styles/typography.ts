@@ -14,7 +14,7 @@ const scaleFont = (size: number) => {
 export const typography = {
     heading: {
         fontSize: scaleFont(24),
-        fontWeight: "bold",
+        fontWeight: "700" as TextStyle["fontWeight"],
         lineHeight: scaleFont(32),
     },
     subheading: {

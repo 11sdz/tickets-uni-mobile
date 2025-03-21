@@ -6,12 +6,12 @@ import {
     Keyboard,
     Platform,
     TextInput,
-    TouchableOpacity,
     View,
 } from "react-native";
 import React from "react";
 import { textInputStyles } from "./textInputs";
 import Button from "../buttons/Button";
+import { Spacing } from "../../styles";
 
 interface RegisterFormProps {
     onSubmit: (
@@ -58,45 +58,56 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
         >
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View>
-                    <Text>RegisterForm</Text>
-                    <TextInput style={textInputStyles.input}
-                        placeholder="User Name"
+                    <Text>טופס רישום</Text>
+                    <TextInput
+                        style={textInputStyles.input}
+                        placeholder="שם משתמש באנגלית"
                         value={userName}
                         onChangeText={setUserName}
                     />
-                    <TextInput style={textInputStyles.input}
-                        placeholder="Email"
+                    <TextInput
+                        style={textInputStyles.input}
+                        placeholder="מייל"
                         value={email}
                         onChangeText={setEmail}
                     />
-                    <TextInput style={textInputStyles.input}
-                        placeholder="Password"
+                    <TextInput
+                        style={textInputStyles.input}
+                        placeholder="סיסמה"
                         value={password}
                         onChangeText={setPassword}
                         secureTextEntry
                     />
-                    <TextInput style={textInputStyles.input}
-                        placeholder="Confirm Password"
+                    <TextInput
+                        style={textInputStyles.input}
+                        placeholder="אשר סיסמה"
                         value={confirmPassword}
                         onChangeText={setConfirmPassword}
                         secureTextEntry
                     />
-                    <TextInput style={textInputStyles.input}
-                        placeholder="First Name"
+                    <TextInput
+                        style={textInputStyles.input}
+                        placeholder="שם פרטי"
                         value={firstName}
                         onChangeText={setFirstName}
                     />
-                    <TextInput style={textInputStyles.input}
-                        placeholder="Last Name"
+                    <TextInput
+                        style={textInputStyles.input}
+                        placeholder="שם משפחה"
                         value={lastName}
                         onChangeText={setLastName}
                     />
-                    <TextInput style={textInputStyles.input}
-                        placeholder="Passkey"
+                    <TextInput
+                        style={textInputStyles.input}
+                        placeholder="קוד עבור משתמש אדמין"
                         value={passkey}
                         onChangeText={setPasskey}
                     />
-                    <Button buttonText="Create account" buttonSize="medium" onPress={() => handleVerify()} />
+                    <Button
+                        buttonText="צור משתמש"
+                        buttonSize="large"
+                        onPress={() => handleVerify()}
+                    />
                 </View>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>

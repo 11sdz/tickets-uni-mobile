@@ -36,5 +36,6 @@ const styles = StyleSheet.create({
   text:{
     ...Typography.typography.body,
     textAlign: 'center',
+    fontFamily: 'Rubik-Medium',
   }
 })

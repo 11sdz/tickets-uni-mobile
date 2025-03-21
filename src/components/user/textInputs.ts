@@ -17,5 +17,8 @@ export const textInputStyles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 1,
         shadowRadius: 6,
-    }
+        direction: 'rtl',
+        textAlign: 'right',
+        fontFamily: 'Rubik-Medium',
+    },
 });

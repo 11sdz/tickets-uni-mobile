@@ -36,7 +36,7 @@ const Home = () => {
 
     return (
         <View style={styles.container}>
-            <Button buttonText="Refresh tickets" buttonSize="medium" onPress={handleGetTickets} />
+            <Button buttonText="רענן פניות" buttonSize="medium" onPress={handleGetTickets} />
             <UpdateStatusButton/>
             <Text>Home</Text>
             {loading && <Text>Loading...</Text>}

@@ -11,6 +11,7 @@ import {  Colors, Spacing } from "../../src/styles";
 import Button from "../../src/components/buttons/Button";
 
 const Login = () => {
+
     const router = useRouter();
     const { loading, error, data ,token} = useSelector(
         (state: RootState) => state.auth
@@ -35,7 +36,7 @@ const Login = () => {
     return (
         <View style={styles.container}>
             <AuthForm onSubmit={handleLogin} />
-            <Button buttonText="Register now" buttonSize="large" onPress={() => router.push("/(auth)/register")} />
+            <Button buttonText="צור משתמש" buttonSize="large" onPress={() => router.push("/(auth)/register")} />
             {loading && <Text>Loading...</Text>}
             {error && <Text>{error}</Text>}
             {data && token && <Text>{data.message} {token} </Text>}

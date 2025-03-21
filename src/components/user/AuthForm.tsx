@@ -6,8 +6,6 @@ import {
     TouchableWithoutFeedback,
     View,
     Keyboard,
-    TouchableOpacity,
-    Text,
 } from "react-native";
 import React from "react";
 import { textInputStyles } from "./textInputs";
@@ -28,17 +26,17 @@ const AuthForm = ({onSubmit}:AuthFormProps) => {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={{ paddingVertical: 10 }}>
                     <TextInput style={[textInputStyles.input]}
-                        placeholder="Email"
+                        placeholder="שם משתמש או מייל"
                         value={email}
                         onChangeText={setEmail}
                     />
                     <TextInput style={[textInputStyles.input]}
-                        placeholder="Password"
+                        placeholder="סיסמה"
                         value={password}
                         onChangeText={setPassword}
                         secureTextEntry
                     />
-                    <Button buttonText="Login" buttonSize="large" onPress={() => onSubmit(email, password)} />
+                    <Button buttonText="התחבר" buttonSize="large" onPress={() => onSubmit(email, password)} />
                 </View>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { registerUser } from '../../src/store/state/api/authSlice'
 import { RootState, AppDispatch } from '../../src/store/state/store'
 import { Colors, Spacing } from '../../src/styles'
+import { router } from 'expo-router'
 
 const Register = () => {
   const {loading, error ,data} = useSelector((state:RootState) => state.auth)
