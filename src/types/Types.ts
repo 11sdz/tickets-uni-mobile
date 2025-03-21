@@ -10,6 +10,7 @@ export interface TicketData {
     text: string;
     status: string;
     agent: string;
+    generatedTitle: string;
     createdAt: string;
     openedAt: string;
 }
