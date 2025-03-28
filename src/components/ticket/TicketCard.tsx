@@ -23,7 +23,7 @@ const TicketCard = ({ ticketData, onPress }: TicketCardProps) => {
             style={styles.cardStyle}
         >
             <View style={styles.header}>
-                <View>
+                <View style={{maxWidth: width * 0.6,}}>
                     <Text style={styles.generatedTitle}>
                         {ticketData.generatedTitle}
                     </Text>

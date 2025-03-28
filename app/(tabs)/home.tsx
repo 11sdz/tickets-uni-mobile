@@ -23,7 +23,7 @@ const Home = () => {
     const handleGetTickets = async () => {
         try {
             // Handle registration logic here
-            dispatch(fetchTicketData({ agent: "agent2" }));
+            dispatch(fetchTicketData({ agent: "agent1" }));
         } catch (e) {
             console.log(e);
         }
