@@ -10,7 +10,7 @@ import TicketCard from "../../src/components/ticket/TicketCard";
 import { router } from "expo-router";
 
 const ItemSeparator = () => (
-    <View style={{ height: 2, backgroundColor: Colors.colors.shade }} />
+    <View style={{ height: Spacing.spacing.s }} />
 );
 
 const ActivityScreen = () => {

@@ -8,6 +8,7 @@ import {
 import React from "react";
 import { TicketData } from "../../types/Types";
 import { Colors, Spacing, Typography } from "../../styles";
+import { getLocationText } from "../../utilities/Tickets";
 
 const { width } = Dimensions.get("window");
 
@@ -18,22 +19,27 @@ type TicketCardProps = {
 
 const TicketCard = ({ ticketData, onPress }: TicketCardProps) => {
 
+    const handleLongPress = () => {
+        console.log("Long pressed on ticket:", ticketData._id);
+    };
+
+    const locationText = getLocationText(ticketData.location); // Use the utility function to get the location text
+
     return (
         <TouchableOpacity
             onPress={() => onPress(ticketData._id)}
+            onLongPress={handleLongPress} // Optional: Handle long press if needed
             style={styles.cardStyle}
         >
-            <View style={styles.header}>
-                <View style={{maxWidth: width * 0.6,}}>
+                <View>
                     <Text style={styles.generatedTitle}>
                         {ticketData.generatedTitle}
                     </Text>
-                    <Text style={styles.location}>מיקום: {ticketData.location}</Text>
                 </View>
-                <Text style={styles.generatedTitle}>{ticketData.title}</Text>
-            </View>
-            <View style={styles.seperator} />
-            <Text style={styles.text}>{ticketData.text}</Text>
+                <Text style={styles.location}>מיקום: {locationText}</Text>
+                <Text style={styles.number}>מס': {ticketData.title}</Text>
+            {/* <View style={styles.seperator} />
+            <Text style={styles.text}>{ticketData.text}</Text> */}
         </TouchableOpacity>
     );
 };
@@ -48,7 +54,9 @@ const styles = StyleSheet.create({
     generatedTitle: {
         ...Typography.typography.subheading,
         fontFamily: "Rubik-Bold",
-        textAlign: "right",
+        writingDirection: "rtl",
+        alignSelf: "flex-start", // Align to the start for Hebrew text direction
+        maxWidth: width 
     },
     location: {
         ...Typography.typography.body,
@@ -58,12 +66,16 @@ const styles = StyleSheet.create({
     title: {
         ...Typography.typography.caption,
         fontFamily: "Rubik-Medium",
-        textAlign: "right",
     },
     text: {
         ...Typography.typography.body,
         fontFamily: "NotoSerif-Regular",
-        writingDirection: "rtl",
+    },
+    number:{
+        ...Typography.typography.body, // Use caption style for the number to make it smaller
+        fontFamily: "Rubik-Medium", // Ensure the font is loaded
+        color: Colors.colors.body, // Use primary color for better visibility
+        textAlign: "right", // Align to the right for Hebrew text
     },
     cardStyle: {
         backgroundColor: "#fff",
@@ -79,6 +91,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 4,
         maxWidth: width,
+        alignItems: "flex-start", // Align items to the start for Hebrew text direction
     },
     seperator: {
         height: 1,

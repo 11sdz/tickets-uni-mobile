@@ -38,6 +38,11 @@ const styles = StyleSheet.create({
         borderColor: Colors.colors.secondary,
         borderRadius: 10,
         backgroundColor: "#f9f9f9",
+        elevation: 3, // For Android shadow
+        shadowColor: Colors.colors.shade, // For iOS shadow
+        shadowOffset: { width: 0, height: 2 }, // iOS shadow offset
+        shadowOpacity: 0.8, // iOS shadow opacity
+        shadowRadius: 2, // iOS shadow radius
     },
     shiftButton: {
         flexDirection: "row",
