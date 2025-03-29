@@ -42,8 +42,6 @@ const ActivityScreen = () => {
                 buttonSize="medium"
                 onPress={handleGetTickets}
             />
-
-            <Text>ActivityScreen</Text>
             {loading && <Text>Loading...</Text>}
             {error && <Text>{error}</Text>}
             <FlatList
