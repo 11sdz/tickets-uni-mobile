@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../store/state/store";
@@ -47,7 +47,7 @@ const UpdateStatusButton = () => {
     };
 
     return (
-        <Button buttonText={buttonText} buttonSize="small" onPress={handleStatusUpdate} />
+        <Button buttonText={buttonText} buttonSize="medium" onPress={handleStatusUpdate} />
     );
 };
 

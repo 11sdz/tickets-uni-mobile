@@ -3,8 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../src/store/state/store";
 import { fetchTicketData } from "../../src/store/state/tickets/ticketSlice";
-import UpdateStatusButton from "../../src/components/status/UpdateStatusButton";
-import { Buttons, Colors, Spacing } from "../../src/styles";
+import { Colors, Spacing } from "../../src/styles";
 import Button from "../../src/components/buttons/Button";
 import { FlatList } from "react-native-gesture-handler";
 import TicketCard from "../../src/components/ticket/TicketCard";
@@ -38,10 +37,9 @@ const ActivityScreen = () => {
 
     return (
         <View style={styles.container}>
-            <UpdateStatusButton />
             <Button
                 buttonText="רענן פניות"
-                buttonSize="small"
+                buttonSize="medium"
                 onPress={handleGetTickets}
             />
 
@@ -66,10 +64,5 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: Colors.colors.background,
         padding: Spacing.spacing.m,
-    },
-    refreshTicketsButton: {
-        ...Buttons.buttonSizes.medium,
-        ...Buttons.smallRounded,
-        backgroundColor: Colors.colors.primary,
     },
 });
