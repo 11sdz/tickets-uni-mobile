@@ -1,15 +1,15 @@
-import { StyleSheet, Text, TouchableOpacity} from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../store/state/store";
 import { updateStatus } from "../../store/state/user/statusSlice";
+import Button from "../buttons/Button";
 
 const UpdateStatusButton = () => {
     const statusData = useSelector(
         (state: RootState) => state.status.StatusData
     );
     const userData = useSelector((state: RootState) => state.user.userData);
-
     const dispatch: AppDispatch = useDispatch();
 
     // Check if userData and statusData are available
@@ -17,13 +17,17 @@ const UpdateStatusButton = () => {
         (data) => data.userId === userData?._id
     );
 
-    const [status, setStatus] = useState<string|null>(null)
+    const [status, setStatus] = useState<string | null>(null);
+    const [buttonText, setButtonText] = useState<string>("");
 
-    useEffect(()=>{
-        if(userStatus){
-            setStatus(userStatus.status)
+    useEffect(() => {
+        if (userStatus) {
+            setStatus(userStatus.status);
+            setButtonText(userStatus.status === "online" ? "סיים משמרת" : "התחל משמרת");
+        } else {
+            setButtonText("שגיאה");
         }
-    }, [userStatus])
+    }, [userStatus]);
 
     const handleStatusUpdate = async () => {
         if (userData?._id) {
@@ -43,10 +47,7 @@ const UpdateStatusButton = () => {
     };
 
     return (
-        <TouchableOpacity onPress={() => handleStatusUpdate()}>
-            <Text>{status}</Text>
-            <Text>העבר למצב עובד</Text>
-        </TouchableOpacity>
+        <Button buttonText={buttonText} buttonSize="small" onPress={handleStatusUpdate} />
     );
 };
 

@@ -37,5 +37,18 @@ export const typography = {
         fontWeight: "600" as TextStyle["fontWeight"],
         lineHeight: scaleFont(22),
         textTransform: "uppercase",
-    },
+    },small:{
+        fontSize: scaleFont(12), // Smaller font size for small text
+        fontWeight: "400" as TextStyle["fontWeight"], // Normal weight
+        lineHeight: scaleFont(16), // Adjust line height for readability
+    },medium: {
+        fontSize: scaleFont(14), // Medium font size for medium text
+        fontWeight: "500" as TextStyle["fontWeight"], // Medium weight for better visibility
+        lineHeight: scaleFont(20), // Adjust line height for readability
+    },large:{
+        fontSize: scaleFont(18), // Larger font size for large text
+        fontWeight: "600" as TextStyle["fontWeight"], // Semi-bold weight for emphasis
+        lineHeight: scaleFont(26), // Adjust line height for readability
+    }
 };
+

@@ -17,6 +17,7 @@ type TicketCardProps = {
 };
 
 const TicketCard = ({ ticketData, onPress }: TicketCardProps) => {
+
     return (
         <TouchableOpacity
             onPress={() => onPress(ticketData._id)}
@@ -27,7 +28,7 @@ const TicketCard = ({ ticketData, onPress }: TicketCardProps) => {
                     <Text style={styles.generatedTitle}>
                         {ticketData.generatedTitle}
                     </Text>
-                    <Text style={styles.location}>{ticketData.location}</Text>
+                    <Text style={styles.location}>מיקום: {ticketData.location}</Text>
                 </View>
                 <Text style={styles.generatedTitle}>{ticketData.title}</Text>
             </View>
@@ -43,7 +44,6 @@ const styles = StyleSheet.create({
   header:{
     flexDirection: "row",
     justifyContent: "space-between",
-    direction: "rtl",
   },
     generatedTitle: {
         ...Typography.typography.subheading,
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     location: {
         ...Typography.typography.body,
         fontFamily: "Rubik-Medium",
-        textAlign: "right",
+        color: Colors.colors.subheading, // Use subheading color for location
     },
     title: {
         ...Typography.typography.caption,
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     text: {
         ...Typography.typography.body,
         fontFamily: "NotoSerif-Regular",
-        textAlign: "right",
+        writingDirection: "rtl",
     },
     cardStyle: {
         backgroundColor: "#fff",
