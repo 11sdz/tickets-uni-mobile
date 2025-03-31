@@ -5,10 +5,11 @@ import {
     TouchableOpacity,
     View,
 } from "react-native";
-import React from "react";
+import React, { ElementRef, useRef, useState } from "react";
 import { TicketData } from "../../types/Types";
 import { Colors, Spacing, Typography } from "../../styles";
 import { getLocationText } from "../../utilities/Tickets";
+import PhoneNumbers from "./PhoneNumbers";
 
 const { width } = Dimensions.get("window");
 
@@ -18,9 +19,18 @@ type TicketCardProps = {
 };
 
 const TicketCard = ({ ticketData, onPress }: TicketCardProps) => {
+    const [phoneModalVisible, setPhoneModalVisible] = useState(false); // State to control the visibility of the phone modal
+    const [phoneModalXY, setPhoneModalXY] = useState<{ x: number; y: number } | null>()
+
+    const cardTouchRef = useRef<ElementRef<typeof TouchableOpacity>>(null); // Ref to the TouchableOpacity for handling long press
 
     const handleLongPress = () => {
         console.log("Long pressed on ticket:", ticketData._id);
+        cardTouchRef.current?.measure((fx, fy, width, height, px, py) => {
+            setPhoneModalXY({ x: px+width/8, y: py+height/2 }); // Store the position for the modal
+            console.log("Measured position:", { fx, fy, width, height, px, py });
+        });
+        setPhoneModalVisible(true); // Show the phone modal
     };
 
     const locationText = getLocationText(ticketData.location); // Use the utility function to get the location text
@@ -30,6 +40,7 @@ const TicketCard = ({ ticketData, onPress }: TicketCardProps) => {
             onPress={() => onPress(ticketData._id)}
             onLongPress={handleLongPress} // Optional: Handle long press if needed
             style={styles.cardStyle}
+            ref={cardTouchRef} // Attach the ref to the TouchableOpacity for long press handling
         >
                 <View>
                     <Text style={styles.generatedTitle}>
@@ -38,6 +49,9 @@ const TicketCard = ({ ticketData, onPress }: TicketCardProps) => {
                 </View>
                 <Text style={styles.location}>מיקום: {locationText}</Text>
                 <Text style={styles.number}>מס': {ticketData.title}</Text>
+                <PhoneNumbers 
+                    onClose={() => setPhoneModalVisible(false)} visible={phoneModalVisible} mobileNumber={ticketData.mobileNumber} officeNumber={ticketData.officeNumber} position={phoneModalXY || undefined} // Pass the position to the PhoneNumbers component for modal positioning
+                />
             {/* <View style={styles.seperator} />
             <Text style={styles.text}>{ticketData.text}</Text> */}
         </TouchableOpacity>

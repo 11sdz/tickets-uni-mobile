@@ -9,4 +9,6 @@ export const colors = {
     body: '#555555',
     caption: '#777777',
     linkText: '#1E90FF', // Color for links
+    modal: '#FFFFFF', // Background color for modal content
+    seperator: '#444', // Color for separator lines
 }; // Add more colors as needed
