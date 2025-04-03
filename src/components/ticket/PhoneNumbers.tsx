@@ -1,7 +1,9 @@
 import {
+    Linking,
     Modal,
     StyleSheet,
     Text,
+    TouchableHighlight,
     TouchableOpacity,
     TouchableWithoutFeedback,
     View,
@@ -25,6 +27,12 @@ const PhoneNumbers = ({
     position,
     onClose,
 }: PhoneNumbersProps) => {
+    const openDialer = (number: string) => () => {
+        const url = `tel:${number}`; // Construct the URL for dialing the number
+        Linking.openURL(url) // Open the dialer with the constructed URL
+            .catch((err) => console.error("Error opening dialer:", err)); // Handle any errors that occur
+    };
+
     return (
         <Modal
             transparent={true}
@@ -50,15 +58,24 @@ const PhoneNumbers = ({
                     >
                         <View style={styles.rowContainer}>
                             <Text style={styles.header}>התקשר ללקוח:</Text>
-                            <Icon name="phone" size={Typography.typography.subheading.fontSize}/>
+                            <Icon
+                                name="phone"
+                                size={Typography.typography.subheading.fontSize}
+                            />
                         </View>
-                        <View style={styles.seperator}/>
+                        <View style={styles.seperator} />
                         <View style={styles.rowContainer}>
                             {officeNumber && (
-                                <View style={styles.numbersContainer}>
-                                    {/* Office number */}
-                                    <Text style={styles.body}>{officeNumber}</Text>
-                                </View>
+                                <TouchableOpacity
+                                    onPress={openDialer(officeNumber)}
+                                >
+                                    <View style={styles.numbersContainer}>
+                                        {/* Office number */}
+                                        <Text style={styles.body}>
+                                            {officeNumber}
+                                        </Text>
+                                    </View>
+                                </TouchableOpacity>
                             )}
                             {officeNumber && mobileNumber && (
                                 <View style={{ width: Spacing.spacing.m }}>
@@ -66,10 +83,16 @@ const PhoneNumbers = ({
                                 </View>
                             )}
                             {mobileNumber && (
-                                <View style={styles.numbersContainer}>
-                                    {/* Mobile number */}
-                                    <Text style={styles.body}>{mobileNumber}</Text>
-                                </View>
+                                <TouchableOpacity
+                                    onPress={openDialer(mobileNumber)}
+                                >
+                                    <View style={styles.numbersContainer}>
+                                        {/* Mobile number */}
+                                        <Text style={styles.body}>
+                                            {mobileNumber}
+                                        </Text>
+                                    </View>
+                                </TouchableOpacity>
                             )}
                         </View>
                     </View>
@@ -96,7 +119,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: Spacing.spacing.m, // Horizontal padding for the row container
         paddingVertical: Spacing.spacing.s, // Vertical padding for the row container
         flexDirection: "row", // Arrange items in a row
-        justifyContent:'center', // Center align horizontally
+        justifyContent: "center", // Center align horizontally
         alignItems: "center", // Center align vertically
     },
     numbersContainer: {
@@ -108,13 +131,13 @@ const styles = StyleSheet.create({
         fontFamily: "Rubik-Bold", // Use a medium font weight for the header
         marginEnd: Spacing.spacing.xs, // Add some space between the header and the icon
     },
-    seperator:{
+    seperator: {
         height: 1,
         backgroundColor: Colors.colors.seperator,
-    },body:{
-        
+    },
+    body: {
         ...Typography.typography.body, // Use body typography for the mobile number
         fontFamily: "NotoSerif-Regular", // Use regular font weight for the body text
         marginStart: Spacing.spacing.xs, // Add some space between the icon and the number
-    }
+    },
 });

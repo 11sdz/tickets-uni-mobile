@@ -32,7 +32,8 @@
     "react-native-svg": "15.8.0",
     "react-native-vector-icons": "^10.2.0",
     "react-native-vector-image": "^0.4.5",
-    "react-redux": "^9.2.0"
+    "react-redux": "^9.2.0",
+    "lottie-react-native": "7.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

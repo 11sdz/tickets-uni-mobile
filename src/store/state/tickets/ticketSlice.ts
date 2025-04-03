@@ -1,6 +1,7 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import axiosInstance from '../../../api/axiosInstance';
 import { TicketData } from '../../../types/Types';
+import { RootState } from '../store'; // Adjust the import path as needed
 
 interface TicketState {
     tickets: TicketData[];  // Initialize tickets as an empty array instead of null
@@ -57,5 +58,13 @@ const ticketSlice = createSlice({
     },
 });
 
+
+
 export default ticketSlice.reducer;
 export const { clearTicketData } = ticketSlice.actions;
+
+// Selector to get a ticket by ID from the Redux store
+export const selectTicketById = createSelector(
+    [(state: RootState) => state.tickets.tickets, (_: RootState, ticketId: string) => ticketId],
+    (tickets, ticketId) => tickets.find(ticket => ticket._id === ticketId) || null
+);

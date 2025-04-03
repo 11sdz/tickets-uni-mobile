@@ -1,3 +1,5 @@
+import ListHeader from "../components/ticket/ListHeader";
+
 export const colors = {
     primary: '#ADE8F4',
     secondary: '#023E8A',
@@ -11,4 +13,5 @@ export const colors = {
     linkText: '#1E90FF', // Color for links
     modal: '#FFFFFF', // Background color for modal content
     seperator: '#444', // Color for separator lines
+    ListHeader: '#FFFFFF', // Background color for list header
 }; // Add more colors as needed
