@@ -5,6 +5,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useFonts } from "expo-font";
 import { useEffect, useState } from "react";
 import { I18nManager } from "react-native";
+import React from "react";
 
 const RootLayout = () => {
     const [fontLoaded] = useFonts({

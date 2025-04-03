@@ -7,3 +7,19 @@ export function getLocationText(location:string){
     }
     return location
 }
+
+export function getFormattedDate(date: string): string {
+    const parsedDate = new Date(date); // Parse the date string into a Date object
+    const formattedDate = parsedDate.toLocaleString("he-IL", {
+       // weekday: "long", // e.g., "יום שישי"
+        year: "numeric",
+        month: "numeric", // e.g., "מרץ"
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false, // 24-hour format (set to true for AM/PM)
+      });
+    
+    
+    return formattedDate; // Return the formatted date string
+}

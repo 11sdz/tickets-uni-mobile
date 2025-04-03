@@ -24,6 +24,7 @@ const RootNavigation = () => {
             screenOptions={{
                 headerTintColor: Colors.colors.tint,
                 headerStyle: { backgroundColor: Colors.colors.shade },
+                headerBackTitle:'חזור',
             }}
         >
             <Stack.Screen name="(auth)" options={{ headerShown: false }} />
