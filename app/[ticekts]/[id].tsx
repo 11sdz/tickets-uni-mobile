@@ -5,7 +5,7 @@ import { selectTicketById } from "../../src/store/state/tickets/ticketSlice";
 import { useSelector } from "react-redux";
 import { RootState } from "../../src/store/state/store";
 import { Colors, Spacing, Typography } from "../../src/styles/index";
-import { getFormattedDate } from "../../src/utilities/Tickets";
+import { getFormattedDate, getLocationText } from "../../src/utilities/Tickets";
 import Button from "../../src/components/buttons/Button";
 import PhoneNumbers from "../../src/components/ticket/PhoneNumbers";
 
@@ -61,6 +61,9 @@ const TicketScreen = () => {
     console.log("Ticket Data:", ticketData !== null); // Log ticket data for debugging
     console.log(ticketData?.createdAt);
 
+     const locationText = ticketData?.location ? getLocationText(ticketData?.location, 25) : ""; // Use the utility function to get the location text
+    
+
     return (
         <View style={styles.container}>
             <View style={[styles.header, styles.row]}>
@@ -99,7 +102,7 @@ const TicketScreen = () => {
                 />
                 <FieldRow
                     label={"מיקום:"}
-                    value={`📍${ticketData?.location}`}
+                    value={`📍${locationText}`}
                 />
                 <PhoneNumbers
                     onClose={() => setShowPhoneModal(false)}

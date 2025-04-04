@@ -1,9 +1,11 @@
-export function getLocationText(location:string){
+
+export function getLocationText(location:string,length?:number):string{
+    const len = length || 40; // Default length is 40 if not provided
     if(!location){
         return "לא צויין מיקום"; // Default message in Hebrew meaning "No location specified"
-    }else if(location.length > 40){
-        return location.slice(0, 30) + "..."; // Truncate to 40 characters and add ellipsis if it's too long
-        // This ensures that if the location is too long, it will be truncated to 40 characters and will end with an ellipsis for readability.
+    }else if(location.length > len){
+        return location.slice(0, len) + "..."; // Truncate to specified length and add ellipsis if it's too long
+        // This ensures that if the location is too long, it will be truncated to the specified length and will end with an ellipsis for readability.
     }
     return location
 }

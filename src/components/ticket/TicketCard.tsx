@@ -43,7 +43,7 @@ const TicketCard = ({ ticketData, onPress }: TicketCardProps) => {
         setPhoneModalVisible(true); // Show the phone modal
     };
 
-    const locationText = getLocationText(ticketData.location); // Use the utility function to get the location text
+    const locationText = getLocationText(ticketData.location, 35); // Use the utility function to get the location text
 
     return (
         <TouchableOpacity
