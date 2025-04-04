@@ -20,15 +20,25 @@ type TicketCardProps = {
 
 const TicketCard = ({ ticketData, onPress }: TicketCardProps) => {
     const [phoneModalVisible, setPhoneModalVisible] = useState(false); // State to control the visibility of the phone modal
-    const [phoneModalXY, setPhoneModalXY] = useState<{ x: number; y: number } | null>()
+    const [phoneModalXY, setPhoneModalXY] = useState<{
+        x: number;
+        y: number;
+    } | null>();
 
     const cardTouchRef = useRef<ElementRef<typeof TouchableOpacity>>(null); // Ref to the TouchableOpacity for handling long press
 
     const handleLongPress = () => {
         console.log("Long pressed on ticket:", ticketData._id);
         cardTouchRef.current?.measure((fx, fy, width, height, px, py) => {
-            setPhoneModalXY({ x: px+width/8, y: py+height/2 }); // Store the position for the modal
-            console.log("Measured position:", { fx, fy, width, height, px, py });
+            setPhoneModalXY({ x: px + width / 8, y: py + height / 2 }); // Store the position for the modal
+            console.log("Measured position:", {
+                fx,
+                fy,
+                width,
+                height,
+                px,
+                py,
+            });
         });
         setPhoneModalVisible(true); // Show the phone modal
     };
@@ -42,16 +52,20 @@ const TicketCard = ({ ticketData, onPress }: TicketCardProps) => {
             style={styles.cardStyle}
             ref={cardTouchRef} // Attach the ref to the TouchableOpacity for long press handling
         >
-                <View>
-                    <Text style={styles.generatedTitle}>
-                        {ticketData.generatedTitle}
-                    </Text>
-                </View>
-                <Text style={styles.location}>מיקום: {locationText}</Text>
-                <Text style={styles.number}>מס': {ticketData.title}</Text>
-                <PhoneNumbers 
-                    onClose={() => setPhoneModalVisible(false)} visible={phoneModalVisible} mobileNumber={ticketData.mobileNumber} officeNumber={ticketData.officeNumber} position={phoneModalXY || undefined} // Pass the position to the PhoneNumbers component for modal positioning
-                />
+            <View>
+                <Text style={styles.generatedTitle}>
+                    {ticketData.generatedTitle}
+                </Text>
+            </View>
+            <Text style={styles.location}>מיקום: {locationText}</Text>
+            <Text style={styles.number}>מס': {ticketData.title}</Text>
+            <PhoneNumbers
+                onClose={() => setPhoneModalVisible(false)}
+                visible={phoneModalVisible}
+                mobileNumber={ticketData.mobileNumber}
+                officeNumber={ticketData.officeNumber}
+                position={phoneModalXY || undefined} // Pass the position to the PhoneNumbers component for modal positioning
+            />
             {/* <View style={styles.seperator} />
             <Text style={styles.text}>{ticketData.text}</Text> */}
         </TouchableOpacity>
@@ -61,16 +75,16 @@ const TicketCard = ({ ticketData, onPress }: TicketCardProps) => {
 export default TicketCard;
 
 const styles = StyleSheet.create({
-  header:{
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
+    header: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
     generatedTitle: {
         ...Typography.typography.subheading,
         fontFamily: "Rubik-Bold",
         writingDirection: "rtl",
         alignSelf: "flex-start", // Align to the start for Hebrew text direction
-        maxWidth: width 
+        maxWidth: width,
     },
     location: {
         ...Typography.typography.body,
@@ -85,7 +99,7 @@ const styles = StyleSheet.create({
         ...Typography.typography.body,
         fontFamily: "NotoSerif-Regular",
     },
-    number:{
+    number: {
         ...Typography.typography.body, // Use caption style for the number to make it smaller
         fontFamily: "Rubik-Medium", // Ensure the font is loaded
         color: Colors.colors.body, // Use primary color for better visibility

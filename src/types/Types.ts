@@ -6,7 +6,7 @@ export interface TicketData {
     officeNumber: string;
     mobileNumber: string;
     personalName: string;
-    personalPosition: string;
+    position: string;
     text: string;
     status: string;
     agent: string;

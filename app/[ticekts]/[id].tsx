@@ -1,15 +1,22 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useEffect } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import React, { ElementRef, useEffect, useRef, useState } from "react";
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import { selectTicketById } from "../../src/store/state/tickets/ticketSlice";
 import { useSelector } from "react-redux";
 import { RootState } from "../../src/store/state/store";
 import { Colors, Spacing, Typography } from "../../src/styles/index";
 import { getFormattedDate } from "../../src/utilities/Tickets";
-import Icon from "../../src/components/Icon";
 import Button from "../../src/components/buttons/Button";
+import PhoneNumbers from "../../src/components/ticket/PhoneNumbers";
 
 const TicketScreen = () => {
+    const [showPhoneModal, setShowPhoneModal] = useState(false); // State to control the visibility of the phone modal
+    const [phoneModalXY, setPhoneModalXY] = useState<{
+        x: number;
+        y: number;
+    } | null>(null); // State to store the position of the phone modal
+    const callTouchRef = useRef<ElementRef<typeof View>>(null);
+
     const navigation = useNavigation(); // Get navigation object from router
     const { id } = useLocalSearchParams(); // Get ticket ID from URL params
     const ticketId = id as string; // Ensure ticket ID is a string
@@ -25,9 +32,18 @@ const TicketScreen = () => {
         }
     }, [ticketData]);
 
+    const handlePhoneNumbersPress = () => {
+        console.log("Phone numbers pressed"); // Log for debugging
+        callTouchRef.current?.measure((fx, fy, width, height, px, py) => {
+            setPhoneModalXY({ x: px + width / 8, y: py + height / 2 }); // Store the position for the modal
+        });
+
+        setShowPhoneModal(true);
+    };
+
     console.log("Ticket ID:", ticketId); // Log ticket ID for debugging
 
-    console.log("Ticket Data:", ticketData !== null); // Log ticket data for debugging
+    console.log("Ticket Data:", ticketData!==null); // Log ticket data for debugging
     console.log(ticketData?.createdAt);
 
     return (
@@ -45,22 +61,37 @@ const TicketScreen = () => {
                     </Text>
                 </View>
             </View>
-            <View style={[styles.header, styles.row]}>
-                <View style={styles.row}>
-                    <Text style={styles.field}>נפתח ע"י:&nbsp;</Text>
-                    <Text style={styles.title}>{ticketData?.personalName}</Text>
+            <View style={styles.header}>
+                <View style={[styles.row, { justifyContent: "space-between" }]}>
+                    <View style={styles.row}>
+                        <Text style={styles.field}>נפתח ע"י:&nbsp;</Text>
+                        <Text style={styles.title}>
+                            {ticketData?.personalName}
+                        </Text>
+                    </View>
+                    <Button
+                        buttonText="חייג"
+                        buttonSize="small"
+                        onPress={handlePhoneNumbersPress}
+                        iconName="phone"
+                        iconSize={Typography.typography.body.fontSize}
+                        iconColor={"green"}
+                        iconStyle={{ marginStart: Spacing.spacing.xs }}
+                    />
                 </View>
-                <Button
-                    buttonText="חייג"
-                    buttonSize="small"
-                    onPress={() => {
-                        /* Handle button press */
-                    }}
-                    iconName="phone"
-                    iconSize={Typography.typography.body.fontSize}
-                    iconColor={"green"}
+                <View style={styles.row} ref={callTouchRef}>
+                    <Text style={styles.field}>תפקיד:&nbsp;</Text>
+                    <Text style={styles.title}>{ticketData?.position}</Text>
+                </View>
+                <PhoneNumbers
+                    onClose={() => setShowPhoneModal(false)}
+                    visible={showPhoneModal}
+                    mobileNumber={ticketData?.mobileNumber}
+                    officeNumber={ticketData?.officeNumber}
+                    position={phoneModalXY || undefined} // Pass the position to the PhoneNumbers component for modal positioning
                 />
             </View>
+
             <Text>{id}</Text>
             {loading && <Text>טוען...</Text>}
             {error && <Text>{error}</Text>}
@@ -88,6 +119,7 @@ const styles = StyleSheet.create({
             height: 2,
         },
         shadowOpacity: 0.5,
+        marginVertical: Spacing.spacing.s,
     },
     title: {
         ...Typography.typography.subheading,
