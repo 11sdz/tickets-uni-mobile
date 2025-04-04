@@ -12,5 +12,5 @@ export interface TicketData {
     agent: string;
     generatedTitle: string;
     createdAt: string;
-    openedAt: string;
+    date: string;
 }

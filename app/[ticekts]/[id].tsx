@@ -9,6 +9,21 @@ import { getFormattedDate } from "../../src/utilities/Tickets";
 import Button from "../../src/components/buttons/Button";
 import PhoneNumbers from "../../src/components/ticket/PhoneNumbers";
 
+const FieldRow = ({
+    label,
+    value,
+    callTouchRef,
+}: {
+    label: string;
+    value: string | undefined;
+    callTouchRef?: React.RefObject<View>;
+}) => (
+    <View style={styles.row} ref={callTouchRef || undefined}>
+        <Text style={styles.field}>{label}&nbsp;</Text>
+        <Text style={styles.title}>{value}</Text>
+    </View>
+);
+
 const TicketScreen = () => {
     const [showPhoneModal, setShowPhoneModal] = useState(false); // State to control the visibility of the phone modal
     const [phoneModalXY, setPhoneModalXY] = useState<{
@@ -43,7 +58,7 @@ const TicketScreen = () => {
 
     console.log("Ticket ID:", ticketId); // Log ticket ID for debugging
 
-    console.log("Ticket Data:", ticketData!==null); // Log ticket data for debugging
+    console.log("Ticket Data:", ticketData !== null); // Log ticket data for debugging
     console.log(ticketData?.createdAt);
 
     return (
@@ -55,20 +70,18 @@ const TicketScreen = () => {
                 </View>
                 <View style={styles.date}>
                     <Text style={styles.title}>
-                        {ticketData?.createdAt
-                            ? getFormattedDate(ticketData.createdAt)
+                        {ticketData?.date
+                            ? getFormattedDate(ticketData.date)
                             : ""}
                     </Text>
                 </View>
             </View>
             <View style={styles.header}>
                 <View style={[styles.row, { justifyContent: "space-between" }]}>
-                    <View style={styles.row}>
-                        <Text style={styles.field}>נפתח ע"י:&nbsp;</Text>
-                        <Text style={styles.title}>
-                            {ticketData?.personalName}
-                        </Text>
-                    </View>
+                    <FieldRow
+                        label={'נפתח ע"י'}
+                        value={ticketData?.personalName}
+                    />
                     <Button
                         buttonText="חייג"
                         buttonSize="small"
@@ -79,10 +92,15 @@ const TicketScreen = () => {
                         iconStyle={{ marginStart: Spacing.spacing.xs }}
                     />
                 </View>
-                <View style={styles.row} ref={callTouchRef}>
-                    <Text style={styles.field}>תפקיד:&nbsp;</Text>
-                    <Text style={styles.title}>{ticketData?.position}</Text>
-                </View>
+                <FieldRow
+                    label={"תפקיד:"}
+                    value={ticketData?.position}
+                    callTouchRef={callTouchRef}
+                />
+                <FieldRow
+                    label={"מיקום:"}
+                    value={`📍${ticketData?.location}`}
+                />
                 <PhoneNumbers
                     onClose={() => setShowPhoneModal(false)}
                     visible={showPhoneModal}
@@ -90,6 +108,16 @@ const TicketScreen = () => {
                     officeNumber={ticketData?.officeNumber}
                     position={phoneModalXY || undefined} // Pass the position to the PhoneNumbers component for modal positioning
                 />
+            </View>
+            <View style={styles.header}>
+                <View style={styles.row}>
+                    <Text style={styles.field}>
+                        {ticketData?.generatedTitle}
+                    </Text>
+                </View>
+                <View style={styles.row}>
+                    <Text style={styles.body}>{ticketData?.text}</Text>
+                </View>
             </View>
 
             <Text>{id}</Text>
@@ -124,6 +152,10 @@ const styles = StyleSheet.create({
     title: {
         ...Typography.typography.subheading,
         fontFamily: "NotoSerif-Medium",
+    },
+    body: {
+        ...Typography.typography.body,
+        fontFamily: "NotoSerif-Regular",
     },
     field: {
         ...Typography.typography.subheading,
