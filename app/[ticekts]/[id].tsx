@@ -1,13 +1,20 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
 import React, { ElementRef, useEffect, useRef, useState } from "react";
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import { selectTicketById } from "../../src/store/state/tickets/ticketSlice";
 import { useSelector } from "react-redux";
 import { RootState } from "../../src/store/state/store";
 import { Colors, Spacing, Typography } from "../../src/styles/index";
-import { getFormattedDate, getLocationText } from "../../src/utilities/Tickets";
+import {
+    getFormattedDate,
+    getFormattedStatus,
+    getLocationText,
+} from "../../src/utilities/Tickets";
 import Button from "../../src/components/buttons/Button";
 import PhoneNumbers from "../../src/components/ticket/PhoneNumbers";
+import ZoomableImage from "../../src/components/ZoomableImage";
+
+const { width } = Dimensions.get("window"); // Get the width of the device screen}
 
 const FieldRow = ({
     label,
@@ -61,25 +68,33 @@ const TicketScreen = () => {
     console.log("Ticket Data:", ticketData !== null); // Log ticket data for debugging
     console.log(ticketData?.createdAt);
 
-     const locationText = ticketData?.location ? getLocationText(ticketData?.location, 25) : ""; // Use the utility function to get the location text
-    
+    const locationText = ticketData?.location
+        ? getLocationText(ticketData?.location, 25)
+        : ""; // Use the utility function to get the location text
 
     return (
         <View style={styles.container}>
-            <View style={[styles.header, styles.row]}>
-                <View style={styles.row}>
-                    <Text style={styles.field}>בטיפול של:&nbsp;</Text>
-                    <Text style={styles.title}>{ticketData?.agent}</Text>
+            <View style={styles.card}>
+                <View style={[styles.header, styles.row]}>
+                    <FieldRow label="בטיפול של:" value={ticketData?.agent} />
+                    <View>
+                        <Text style={styles.title}>
+                            {ticketData?.date
+                                ? getFormattedDate(ticketData.date)
+                                : ""}
+                        </Text>
+                    </View>
                 </View>
-                <View style={styles.date}>
-                    <Text style={styles.title}>
-                        {ticketData?.date
-                            ? getFormattedDate(ticketData.date)
-                            : ""}
-                    </Text>
-                </View>
+                <FieldRow
+                    label="סטטוס:"
+                    value={
+                        ticketData?.status
+                            ? getFormattedStatus(ticketData.status)
+                            : ""
+                    }
+                />
             </View>
-            <View style={styles.header}>
+            <View style={styles.card}>
                 <View style={[styles.row, { justifyContent: "space-between" }]}>
                     <FieldRow
                         label={'נפתח ע"י'}
@@ -100,10 +115,7 @@ const TicketScreen = () => {
                     value={ticketData?.position}
                     callTouchRef={callTouchRef}
                 />
-                <FieldRow
-                    label={"מיקום:"}
-                    value={`📍${locationText}`}
-                />
+                <FieldRow label={"מיקום:"} value={`📍${locationText}`} />
                 <PhoneNumbers
                     onClose={() => setShowPhoneModal(false)}
                     visible={showPhoneModal}
@@ -112,7 +124,7 @@ const TicketScreen = () => {
                     position={phoneModalXY || undefined} // Pass the position to the PhoneNumbers component for modal positioning
                 />
             </View>
-            <View style={styles.header}>
+            <View style={styles.card}>
                 <View style={styles.row}>
                     <Text style={styles.field}>
                         {ticketData?.generatedTitle}
@@ -121,6 +133,13 @@ const TicketScreen = () => {
                 <View style={styles.row}>
                     <Text style={styles.body}>{ticketData?.text}</Text>
                 </View>
+            </View>
+            <View>
+            <ZoomableImage
+                imageUri={require("../../src/assets/images/ariel-map.jpg")}
+                imageWidth={width * 0.9}
+                imageHeight={width * 0.5}
+            />
             </View>
 
             <Text>{id}</Text>
@@ -139,6 +158,9 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.colors.background,
     },
     header: {
+        justifyContent: "space-between",
+    },
+    card: {
         justifyContent: "space-between",
         backgroundColor: "white",
         padding: Spacing.spacing.s,
@@ -164,7 +186,6 @@ const styles = StyleSheet.create({
         ...Typography.typography.subheading,
         fontFamily: "Rubik-SemiBold",
     },
-    date: {},
     row: {
         flexDirection: "row",
     },

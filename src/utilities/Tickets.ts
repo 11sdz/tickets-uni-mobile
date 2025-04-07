@@ -55,3 +55,16 @@ export function getFormattedDate(dateStr: string): string {
         hour12: false, // 24-hour format
     });
 }
+
+export function getFormattedStatus(status: string): string {
+    switch (status) {
+        case "open":
+            return "פתוח";
+        case "closed":
+            return "סגור";
+        case "in-progress":
+            return "בטיפול";
+        default:
+            return status; // Return the original status if it doesn't match any known ones
+    }
+}
