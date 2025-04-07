@@ -84,7 +84,6 @@ const styles = StyleSheet.create({
         fontFamily: "Rubik-Bold",
         writingDirection: "rtl",
         alignSelf: "flex-start", // Align to the start for Hebrew text direction
-        maxWidth: width,
     },
     location: {
         ...Typography.typography.body,

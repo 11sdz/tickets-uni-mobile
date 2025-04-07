@@ -38,7 +38,6 @@ const PhoneNumbers = ({
             transparent={true}
             animationType="fade"
             visible={visible}
-            onRequestClose={() => {}}
         >
             <TouchableOpacity
                 style={styles.overlay} // Apply position if provided

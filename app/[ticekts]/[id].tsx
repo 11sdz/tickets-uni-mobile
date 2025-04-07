@@ -13,6 +13,8 @@ import {
 import Button from "../../src/components/buttons/Button";
 import PhoneNumbers from "../../src/components/ticket/PhoneNumbers";
 import ZoomableImage from "../../src/components/ZoomableImage";
+import { ScrollView } from "react-native-gesture-handler";
+import ImageModal from "../../src/components/ImageModal";
 
 const { width } = Dimensions.get("window"); // Get the width of the device screen}
 
@@ -32,6 +34,7 @@ const FieldRow = ({
 );
 
 const TicketScreen = () => {
+    const [showMap, setShowMap] = useState(false); // State to control the visibility of the map modal
     const [showPhoneModal, setShowPhoneModal] = useState(false); // State to control the visibility of the phone modal
     const [phoneModalXY, setPhoneModalXY] = useState<{
         x: number;
@@ -74,6 +77,8 @@ const TicketScreen = () => {
 
     return (
         <View style={styles.container}>
+
+        <ScrollView >
             <View style={styles.card}>
                 <View style={[styles.header, styles.row]}>
                     <FieldRow label="בטיפול של:" value={ticketData?.agent} />
@@ -134,17 +139,18 @@ const TicketScreen = () => {
                     <Text style={styles.body}>{ticketData?.text}</Text>
                 </View>
             </View>
-            <View>
-            <ZoomableImage
+            <ImageModal
+                visible={showMap}
+                onClose={() => setShowMap(false)}
                 imageUri={require("../../src/assets/images/ariel-map.jpg")}
                 imageWidth={width * 0.9}
                 imageHeight={width * 0.5}
             />
-            </View>
 
             <Text>{id}</Text>
             {loading && <Text>טוען...</Text>}
             {error && <Text>{error}</Text>}
+        </ScrollView>
         </View>
     );
 };

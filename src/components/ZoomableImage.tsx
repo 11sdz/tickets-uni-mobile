@@ -4,7 +4,7 @@ import Animated, {
     useSharedValue,
     withTiming,
     useAnimatedStyle,
-    withDecay,
+    clamp,
 } from "react-native-reanimated";
 
 type ZoomableImageProps = {
@@ -18,28 +18,34 @@ const ZoomableImage = ({
     imageWidth = 300,
     imageHeight = 300,
 }: ZoomableImageProps) => {
-    const pinchScale = useSharedValue(1);
     const baseScale = useSharedValue(1);
+    const pinchScale = useSharedValue(1);
     const offsetX = useSharedValue(0);
     const offsetY = useSharedValue(0);
     const translateX = useSharedValue(0);
     const translateY = useSharedValue(0);
-    const panFactor = 0.4; // 👈 slow down panning
+    const panFactor = 0.4;
+
+    const MIN_SCALE = 1;
+    const MAX_SCALE = 5;
 
     const pinchGesture = Gesture.Pinch()
         .onUpdate((event) => {
-            const newScale = event.scale;
-            pinchScale.value = Math.max(newScale, 1); // 👈 Prevent zoom out below 1
+            pinchScale.value = event.scale;
         })
-        .onEnd((event) => {
-            baseScale.value *= pinchScale.value;
+        .onEnd(() => {
+            // Clamp and set the new base scale
+            const newScale = baseScale.value * pinchScale.value;
+            baseScale.value = clamp(newScale, MIN_SCALE, MAX_SCALE);
+
+            // Reset gesture scale for next time
             pinchScale.value = 1;
         });
 
     const panGesture = Gesture.Pan()
         .onUpdate((event) => {
-            translateX.value = offsetX.value + event.translationX*panFactor;
-            translateY.value = offsetY.value + event.translationY*panFactor;
+            translateX.value = offsetX.value + event.translationX * panFactor;
+            translateY.value = offsetY.value + event.translationY * panFactor;
         })
         .onEnd(() => {
             offsetX.value = translateX.value;
@@ -49,7 +55,7 @@ const ZoomableImage = ({
     const composedGesture = Gesture.Simultaneous(pinchGesture, panGesture);
 
     const animatedStyle = useAnimatedStyle(() => {
-        const finalScale = pinchScale.value *baseScale.value
+        const finalScale = clamp(baseScale.value * pinchScale.value, MIN_SCALE, MAX_SCALE);
 
         return {
             transform: [
