@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
 import React, { ElementRef, useEffect, useRef, useState } from "react";
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import { selectTicketById } from "../../src/store/state/tickets/ticketSlice";
@@ -22,14 +22,16 @@ const FieldRow = ({
     label,
     value,
     callTouchRef,
+    textDecorationLine,
 }: {
     label: string;
     value: string | undefined;
     callTouchRef?: React.RefObject<View>;
+    textDecorationLine?: boolean;
 }) => (
     <View style={styles.row} ref={callTouchRef || undefined}>
         <Text style={styles.field}>{label}&nbsp;</Text>
-        <Text style={styles.title}>{value}</Text>
+        <Text style={[styles.title, textDecorationLine ? { textDecorationLine: 'underline' } : {}]}>{value}</Text>
     </View>
 );
 
@@ -66,6 +68,11 @@ const TicketScreen = () => {
         setShowPhoneModal(true);
     };
 
+    const handleLocationPress = () => {
+        console.log("Location pressed"); // Log for debugging
+        setShowMap(true); // Show map modal
+    }
+
     console.log("Ticket ID:", ticketId); // Log ticket ID for debugging
 
     console.log("Ticket Data:", ticketData !== null); // Log ticket data for debugging
@@ -77,80 +84,91 @@ const TicketScreen = () => {
 
     return (
         <View style={styles.container}>
-
-        <ScrollView >
-            <View style={styles.card}>
-                <View style={[styles.header, styles.row]}>
-                    <FieldRow label="בטיפול של:" value={ticketData?.agent} />
-                    <View>
-                        <Text style={styles.title}>
-                            {ticketData?.date
-                                ? getFormattedDate(ticketData.date)
-                                : ""}
+            <ScrollView>
+                <View style={styles.card}>
+                    <View style={[styles.header, styles.row]}>
+                        <FieldRow
+                            label="בטיפול של:"
+                            value={ticketData?.agent}
+                        />
+                        <View>
+                            <Text style={styles.title}>
+                                {ticketData?.date
+                                    ? getFormattedDate(ticketData.date)
+                                    : ""}
+                            </Text>
+                        </View>
+                    </View>
+                    <FieldRow
+                        label="סטטוס:"
+                        value={
+                            ticketData?.status
+                                ? getFormattedStatus(ticketData.status)
+                                : ""
+                        }
+                    />
+                </View>
+                <View style={styles.card}>
+                    <View
+                        style={[
+                            styles.row,
+                            { justifyContent: "space-between" },
+                        ]}
+                    >
+                        <FieldRow
+                            label={'נפתח ע"י'}
+                            value={ticketData?.personalName}
+                        />
+                        <Button
+                            buttonText="חייג"
+                            buttonSize="small"
+                            onPress={handlePhoneNumbersPress}
+                            iconName="phone"
+                            iconSize={Typography.typography.body.fontSize}
+                            iconColor={"green"}
+                            iconStyle={{ marginStart: Spacing.spacing.xs }}
+                        />
+                    </View>
+                    <FieldRow
+                        label={"תפקיד:"}
+                        value={ticketData?.position}
+                        callTouchRef={callTouchRef}
+                    />
+                    <Pressable onPress={handleLocationPress}>
+                        <FieldRow
+                            label={"מיקום:"}
+                            value={`📍${locationText}`}
+                            textDecorationLine={true}
+                        />
+                    </Pressable>
+                    <PhoneNumbers
+                        onClose={() => setShowPhoneModal(false)}
+                        visible={showPhoneModal}
+                        mobileNumber={ticketData?.mobileNumber}
+                        officeNumber={ticketData?.officeNumber}
+                        position={phoneModalXY || undefined} // Pass the position to the PhoneNumbers component for modal positioning
+                    />
+                </View>
+                <View style={styles.card}>
+                    <View style={styles.row}>
+                        <Text style={styles.field}>
+                            {ticketData?.generatedTitle}
                         </Text>
                     </View>
+                    <View style={styles.row}>
+                        <Text style={styles.body}>{ticketData?.text}</Text>
+                    </View>
                 </View>
-                <FieldRow
-                    label="סטטוס:"
-                    value={
-                        ticketData?.status
-                            ? getFormattedStatus(ticketData.status)
-                            : ""
-                    }
+                <ImageModal
+                    visible={showMap}
+                    onClose={() => setShowMap(false)}
+                    imageUri={require("../../src/assets/images/ariel-map.jpg")}
+                    imageWidth={width * 0.9}
+                    imageHeight={width * 0.5}
                 />
-            </View>
-            <View style={styles.card}>
-                <View style={[styles.row, { justifyContent: "space-between" }]}>
-                    <FieldRow
-                        label={'נפתח ע"י'}
-                        value={ticketData?.personalName}
-                    />
-                    <Button
-                        buttonText="חייג"
-                        buttonSize="small"
-                        onPress={handlePhoneNumbersPress}
-                        iconName="phone"
-                        iconSize={Typography.typography.body.fontSize}
-                        iconColor={"green"}
-                        iconStyle={{ marginStart: Spacing.spacing.xs }}
-                    />
-                </View>
-                <FieldRow
-                    label={"תפקיד:"}
-                    value={ticketData?.position}
-                    callTouchRef={callTouchRef}
-                />
-                <FieldRow label={"מיקום:"} value={`📍${locationText}`} />
-                <PhoneNumbers
-                    onClose={() => setShowPhoneModal(false)}
-                    visible={showPhoneModal}
-                    mobileNumber={ticketData?.mobileNumber}
-                    officeNumber={ticketData?.officeNumber}
-                    position={phoneModalXY || undefined} // Pass the position to the PhoneNumbers component for modal positioning
-                />
-            </View>
-            <View style={styles.card}>
-                <View style={styles.row}>
-                    <Text style={styles.field}>
-                        {ticketData?.generatedTitle}
-                    </Text>
-                </View>
-                <View style={styles.row}>
-                    <Text style={styles.body}>{ticketData?.text}</Text>
-                </View>
-            </View>
-            <ImageModal
-                visible={showMap}
-                onClose={() => setShowMap(false)}
-                imageUri={require("../../src/assets/images/ariel-map.jpg")}
-                imageWidth={width * 0.9}
-                imageHeight={width * 0.5}
-            />
-
-            <Text>{id}</Text>
-            {loading && <Text>טוען...</Text>}
-            {error && <Text>{error}</Text>}
-        </ScrollView>
+                {loading && <Text>טוען...</Text>}
+                {error && <Text>{error}</Text>}
+            </ScrollView>
         </View>
     );
 };
