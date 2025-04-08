@@ -12,7 +12,6 @@ import {
 } from "../../src/utilities/Tickets";
 import Button from "../../src/components/buttons/Button";
 import PhoneNumbers from "../../src/components/ticket/PhoneNumbers";
-import ZoomableImage from "../../src/components/ZoomableImage";
 import { ScrollView } from "react-native-gesture-handler";
 import ImageModal from "../../src/components/ImageModal";
 
@@ -166,6 +165,23 @@ const TicketScreen = () => {
                     imageWidth={width * 0.9}
                     imageHeight={width * 0.5}
                 />
+                <View style={styles.buttonsContainer}>
+                    <Button 
+                        buttonText="סגור פניה"
+                        buttonSize="small"
+                        onPress={() => console.log("Button pressed")}
+                    />
+                    <Button 
+                        buttonText="סמן בטיפול"
+                        buttonSize="small"
+                        onPress={() => console.log("Another button pressed")}
+                    />
+                    <Button 
+                        buttonText="הוסף הערה"
+                        buttonSize="small"
+                        onPress={() => console.log("Another button pressed")}
+                    />
+                </View>
                 {loading && <Text>טוען...</Text>}
                 {error && <Text>{error}</Text>}
             </ScrollView>
@@ -212,5 +228,10 @@ const styles = StyleSheet.create({
     },
     row: {
         flexDirection: "row",
+    },
+    buttonsContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginTop: Spacing.spacing.s,
     },
 });

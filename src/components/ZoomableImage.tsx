@@ -2,10 +2,10 @@ import React from "react";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
     useSharedValue,
-    withTiming,
     useAnimatedStyle,
     clamp,
 } from "react-native-reanimated";
+import LottieAnimation from "./LottieAnimation";
 
 type ZoomableImageProps = {
     imageUri: string | number;
@@ -18,6 +18,7 @@ const ZoomableImage = ({
     imageWidth = 300,
     imageHeight = 300,
 }: ZoomableImageProps) => {
+    const [loading, setLoading] = React.useState(false);
     const baseScale = useSharedValue(1);
     const pinchScale = useSharedValue(1);
     const offsetX = useSharedValue(0);
@@ -74,7 +75,9 @@ const ZoomableImage = ({
                     height: imageHeight,
                     overflow: "hidden",
                 }}
-            >
+            >{loading && <LottieAnimation 
+                    source={require("../assets/lottie/loading.json")}
+            />}
                 <Animated.Image
                     source={
                         typeof imageUri === "string"
@@ -86,6 +89,8 @@ const ZoomableImage = ({
                         animatedStyle,
                     ]}
                     resizeMode="contain"
+                    onLoadStart={() => {setLoading(true)}} // Start loading animation
+                    onLoadEnd={() => {setLoading(false)}}
                 />
             </Animated.View>
         </GestureDetector>

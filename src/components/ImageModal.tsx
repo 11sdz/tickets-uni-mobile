@@ -9,8 +9,6 @@ interface ImageModalProps {
     imageUri: string | number;
     imageWidth?: number;
     imageHeight?: number;
-    onImageLoad?: () => void;
-    zoomable?: boolean;
 }
 
 const ImageModal = ({
@@ -19,8 +17,6 @@ const ImageModal = ({
     imageUri,
     imageWidth,
     imageHeight,
-    onImageLoad,
-    zoomable,
 }: ImageModalProps) => {
     const { width } = Dimensions.get("window");
     return (

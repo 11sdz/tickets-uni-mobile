@@ -3,7 +3,6 @@ import {
     Modal,
     StyleSheet,
     Text,
-    TouchableHighlight,
     TouchableOpacity,
     TouchableWithoutFeedback,
     View,
