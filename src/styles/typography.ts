@@ -37,6 +37,10 @@ export const typography = {
         fontWeight: "600" as TextStyle["fontWeight"],
         lineHeight: scaleFont(22),
         textTransform: "uppercase",
+    },xsmall:{
+        fontSize: scaleFont(10), // Extra small font size for very small text
+        fontWeight: "300" as TextStyle["fontWeight"], // Light weight for subtlety
+        lineHeight: scaleFont(14), // Adjust line height for readability
     },small:{
         fontSize: scaleFont(12), // Smaller font size for small text
         fontWeight: "400" as TextStyle["fontWeight"], // Normal weight

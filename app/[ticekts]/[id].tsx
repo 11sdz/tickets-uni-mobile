@@ -10,10 +10,11 @@ import {
     getFormattedStatus,
     getLocationText,
 } from "../../src/utilities/Tickets";
-import Button from "../../src/components/buttons/Button";
+import Button, { ButtonHandle, ButtonLayout } from "../../src/components/buttons/Button";
 import PhoneNumbers from "../../src/components/ticket/PhoneNumbers";
 import { ScrollView } from "react-native-gesture-handler";
 import ImageModal from "../../src/components/ImageModal";
+import RadialMenu from "../../src/components/buttons/RadialMenu";
 
 const { width } = Dimensions.get("window"); // Get the width of the device screen}
 
@@ -30,11 +31,21 @@ const FieldRow = ({
 }) => (
     <View style={styles.row} ref={callTouchRef || undefined}>
         <Text style={styles.field}>{label}&nbsp;</Text>
-        <Text style={[styles.title, textDecorationLine ? { textDecorationLine: 'underline' } : {}]}>{value}</Text>
+        <Text
+            style={[
+                styles.title,
+                textDecorationLine ? { textDecorationLine: "underline" } : {},
+            ]}
+        >
+            {value}
+        </Text>
     </View>
 );
 
 const TicketScreen = () => {
+    const buttonRadialRef = useRef<ButtonHandle>(null);
+    const [showRadialMenu, setShowRadialMenu] = useState(false); // State to control the visibility of the radial menu
+    const [radialMenuPosition, setRadialMenuPosition] = useState<ButtonLayout | null>(null);
     const [showMap, setShowMap] = useState(false); // State to control the visibility of the map modal
     const [showPhoneModal, setShowPhoneModal] = useState(false); // State to control the visibility of the phone modal
     const [phoneModalXY, setPhoneModalXY] = useState<{
@@ -70,12 +81,46 @@ const TicketScreen = () => {
     const handleLocationPress = () => {
         console.log("Location pressed"); // Log for debugging
         setShowMap(true); // Show map modal
-    }
+    };
 
-    console.log("Ticket ID:", ticketId); // Log ticket ID for debugging
+    const handleActions = (
+        type:
+            | "completeTicket"
+            | "uncompleteTicket"
+            | "inprogressTicket"
+            | "openRadialMenu"
+    ) => {
+        console.log(type); // Log the action type for debugging
+        switch (type) {
+            case "completeTicket":
+                console.log("Complete ticket action"); // Handle complete ticket action
+                break;
+            case "uncompleteTicket":
+                console.log("Uncomplete ticket action"); // Handle uncomplete ticket action
+                break;
+            case "inprogressTicket":
+                console.log("In progress ticket action"); // Handle in progress ticket action
+                break;
+            case "openRadialMenu":
+                buttonRadialRef.current?.measure?.().then((measureButton) => {
+                    if (measureButton) {
+                        setRadialMenuPosition(measureButton); // Set the position for the radial menu
+                    }
+                }).catch((error) => {
+                    console.error("Error measuring button:", error);
+                });
+                setShowRadialMenu((prev) => !prev); // Toggle radial menu visibility
 
-    console.log("Ticket Data:", ticketData !== null); // Log ticket data for debugging
-    console.log(ticketData?.createdAt);
+            default:
+                break;
+        }
+    };
+
+    const items = [
+        { label: "טופל", onPress: () => handleActions("completeTicket") },
+        { label: "לא טופל", onPress: () => handleActions("uncompleteTicket") },
+        { label: "בטיפול", onPress: () => handleActions("inprogressTicket") },
+    ];
 
     const locationText = ticketData?.location
         ? getLocationText(ticketData?.location, 25)
@@ -120,7 +165,7 @@ const TicketScreen = () => {
                         />
                         <Button
                             buttonText="חייג"
-                            buttonSize="small"
+                            buttonSize="xsmall"
                             onPress={handlePhoneNumbersPress}
                             iconName="phone"
                             iconSize={Typography.typography.body.fontSize}
@@ -166,22 +211,29 @@ const TicketScreen = () => {
                     imageHeight={width * 0.5}
                 />
                 <View style={styles.buttonsContainer}>
-                    <Button 
-                        buttonText="סגור פניה"
+                    <Button
+                        buttonText="העבר פניה"
                         buttonSize="small"
                         onPress={() => console.log("Button pressed")}
                     />
-                    <Button 
-                        buttonText="סמן בטיפול"
+                    <Button
+                        buttonText="טפל בפנייה"
                         buttonSize="small"
-                        onPress={() => console.log("Another button pressed")}
+                        ref={buttonRadialRef}
+                        onPress={()=>handleActions("openRadialMenu")}
                     />
-                    <Button 
+                    <Button
                         buttonText="הוסף הערה"
                         buttonSize="small"
                         onPress={() => console.log("Another button pressed")}
                     />
                 </View>
+                <RadialMenu
+                    visible={showRadialMenu}
+                    items={items}
+                    onClose={() => setShowRadialMenu(false)} // Close the radial menu when the close button is pressed
+                    position={radialMenuPosition} // Pass the position for the radial menu
+                />
                 {loading && <Text>טוען...</Text>}
                 {error && <Text>{error}</Text>}
             </ScrollView>

@@ -3,6 +3,11 @@ import { Dimensions } from "react-native";
 const { width } = Dimensions.get("window");
 
 export const buttonSizes = {
+    xsmall:{
+        paddingHorizontal: width * 0.02, // 2% of screen width
+        paddingVertical: width * 0.025, // 2.5% of screen width
+        width: width * 0.25, // 25% of screen width
+    },
     small: {
         paddingHorizontal: width * 0.025, // 2.5% of screen width
         paddingVertical: width * 0.03, // 3% of screen width
