@@ -30,6 +30,24 @@ export const fetchTicketData = createAsyncThunk(
     }
 );
 
+export const patchTicket = createAsyncThunk(
+    'ticket/patchTicket',
+    async (
+        { _id, updateData }: { _id: string; updateData: Partial<TicketData> },
+        { rejectWithValue }
+    ) => {
+        try {
+            const response = await axiosInstance.patch(`/tickets/${_id}`, updateData);
+            return response.data;  // Returning the updated ticket
+        } catch (error: any) {
+            return rejectWithValue(
+                error.response?.data?.message || 'Something went wrong while updating ticket data'
+            );
+        }
+    }
+);
+
+
 const ticketSlice = createSlice({
     name: 'ticket',
     initialState,
@@ -54,6 +72,21 @@ const ticketSlice = createSlice({
             .addCase(fetchTicketData.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
+            })
+            .addCase(patchTicket.fulfilled, (state, action) => {
+                const updatedTicket = action.payload;
+                const index = state.tickets.findIndex(ticket => ticket._id === updatedTicket._id);
+                if (index !== -1) {
+                    state.tickets[index] = updatedTicket;
+                }
+                state.loading = false;
+                state.error = null;
+            })
+            .addCase(patchTicket.rejected, (state, action) => {
+                state.error = action.payload as string;
+            }).addCase(patchTicket.pending, (state) => {
+                state.loading = true;
+                state.error = null;
             });
     },
 });

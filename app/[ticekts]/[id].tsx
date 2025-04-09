@@ -2,8 +2,8 @@ import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
 import React, { ElementRef, useEffect, useRef, useState } from "react";
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import { selectTicketById } from "../../src/store/state/tickets/ticketSlice";
-import { useSelector } from "react-redux";
-import { RootState } from "../../src/store/state/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../src/store/state/store";
 import { Colors, Spacing, Typography } from "../../src/styles/index";
 import {
     getFormattedDate,
@@ -15,6 +15,8 @@ import PhoneNumbers from "../../src/components/ticket/PhoneNumbers";
 import { ScrollView } from "react-native-gesture-handler";
 import ImageModal from "../../src/components/ImageModal";
 import RadialMenu from "../../src/components/buttons/RadialMenu";
+import { UseDispatch } from "react-redux";
+import { patchTicket } from "../../src/store/state/tickets/ticketSlice";
 
 const { width } = Dimensions.get("window"); // Get the width of the device screen}
 
@@ -61,7 +63,9 @@ const TicketScreen = () => {
     const ticketData = useSelector((state: RootState) =>
         selectTicketById(state, ticketId)
     ); // Get ticket from Redux store
+    const dispatch: AppDispatch = useDispatch();
     const { loading, error } = useSelector((state: RootState) => state.tickets); // Loading and error state
+
 
     useEffect(() => {
         if (ticketData?.title) {
@@ -93,9 +97,21 @@ const TicketScreen = () => {
         console.log(type); // Log the action type for debugging
         switch (type) {
             case "completeTicket":
+                if (ticketData?._id) {
+                    dispatch(patchTicket({ _id: ticketData._id, updateData: { status: "completed" } })); // Dispatch action to complete ticket
+                } else {
+                    console.error("Ticket ID is undefined");
+                }
+                setShowRadialMenu(false); // Close the radial menu
                 console.log("Complete ticket action"); // Handle complete ticket action
                 break;
             case "uncompleteTicket":
+                if (ticketData?._id) {
+                    dispatch(patchTicket({ _id: ticketData._id, updateData: { status: "uncompleted" } }));
+                } else {
+                    console.error("Ticket ID is undefined");
+                }
+                setShowRadialMenu(false); // Close the radial menu
                 console.log("Uncomplete ticket action"); // Handle uncomplete ticket action
                 break;
             case "inprogressTicket":

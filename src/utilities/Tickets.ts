@@ -60,10 +60,10 @@ export function getFormattedStatus(status: string): string {
     switch (status) {
         case "open":
             return "פתוח";
-        case "closed":
-            return "סגור";
-        case "in-progress":
-            return "בטיפול";
+        case "completed":
+            return "טופל";
+        case "uncompleted":
+            return "לא טופל";
         default:
             return status; // Return the original status if it doesn't match any known ones
     }
