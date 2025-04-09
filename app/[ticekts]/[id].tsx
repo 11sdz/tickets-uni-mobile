@@ -10,7 +10,10 @@ import {
     getFormattedStatus,
     getLocationText,
 } from "../../src/utilities/Tickets";
-import Button, { ButtonHandle, ButtonLayout } from "../../src/components/buttons/Button";
+import Button, {
+    ButtonHandle,
+    ButtonLayout,
+} from "../../src/components/buttons/Button";
 import PhoneNumbers from "../../src/components/ticket/PhoneNumbers";
 import { ScrollView } from "react-native-gesture-handler";
 import ImageModal from "../../src/components/ImageModal";
@@ -47,7 +50,8 @@ const FieldRow = ({
 const TicketScreen = () => {
     const buttonRadialRef = useRef<ButtonHandle>(null);
     const [showRadialMenu, setShowRadialMenu] = useState(false); // State to control the visibility of the radial menu
-    const [radialMenuPosition, setRadialMenuPosition] = useState<ButtonLayout | null>(null);
+    const [radialMenuPosition, setRadialMenuPosition] =
+        useState<ButtonLayout | null>(null);
     const [showMap, setShowMap] = useState(false); // State to control the visibility of the map modal
     const [showPhoneModal, setShowPhoneModal] = useState(false); // State to control the visibility of the phone modal
     const [phoneModalXY, setPhoneModalXY] = useState<{
@@ -65,7 +69,6 @@ const TicketScreen = () => {
     ); // Get ticket from Redux store
     const dispatch: AppDispatch = useDispatch();
     const { loading, error } = useSelector((state: RootState) => state.tickets); // Loading and error state
-
 
     useEffect(() => {
         if (ticketData?.title) {
@@ -98,7 +101,12 @@ const TicketScreen = () => {
         switch (type) {
             case "completeTicket":
                 if (ticketData?._id) {
-                    dispatch(patchTicket({ _id: ticketData._id, updateData: { status: "completed" } })); // Dispatch action to complete ticket
+                    dispatch(
+                        patchTicket({
+                            _id: ticketData._id,
+                            updateData: { status: "completed" },
+                        })
+                    ); // Dispatch action to complete ticket
                 } else {
                     console.error("Ticket ID is undefined");
                 }
@@ -107,7 +115,12 @@ const TicketScreen = () => {
                 break;
             case "uncompleteTicket":
                 if (ticketData?._id) {
-                    dispatch(patchTicket({ _id: ticketData._id, updateData: { status: "uncompleted" } }));
+                    dispatch(
+                        patchTicket({
+                            _id: ticketData._id,
+                            updateData: { status: "uncompleted" },
+                        })
+                    );
                 } else {
                     console.error("Ticket ID is undefined");
                 }
@@ -115,16 +128,30 @@ const TicketScreen = () => {
                 console.log("Uncomplete ticket action"); // Handle uncomplete ticket action
                 break;
             case "inprogressTicket":
+                if (ticketData?._id) {
+                    dispatch(
+                        patchTicket({
+                            _id: ticketData._id,
+                            updateData: { status: "inprogress" },
+                        })
+                    );
+                } else {
+                    console.error("Ticket ID is undefined");
+                }
+                setShowRadialMenu(false); // Close the radial menu
                 console.log("In progress ticket action"); // Handle in progress ticket action
                 break;
             case "openRadialMenu":
-                buttonRadialRef.current?.measure?.().then((measureButton) => {
-                    if (measureButton) {
-                        setRadialMenuPosition(measureButton); // Set the position for the radial menu
-                    }
-                }).catch((error) => {
-                    console.error("Error measuring button:", error);
-                });
+                buttonRadialRef.current
+                    ?.measure?.()
+                    .then((measureButton) => {
+                        if (measureButton) {
+                            setRadialMenuPosition(measureButton); // Set the position for the radial menu
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error measuring button:", error);
+                    });
                 setShowRadialMenu((prev) => !prev); // Toggle radial menu visibility
 
             default:
@@ -236,7 +263,7 @@ const TicketScreen = () => {
                         buttonText="טפל בפנייה"
                         buttonSize="small"
                         ref={buttonRadialRef}
-                        onPress={()=>handleActions("openRadialMenu")}
+                        onPress={() => handleActions("openRadialMenu")}
                     />
                     <Button
                         buttonText="הוסף הערה"

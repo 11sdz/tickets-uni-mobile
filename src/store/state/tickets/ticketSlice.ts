@@ -84,6 +84,7 @@ const ticketSlice = createSlice({
             })
             .addCase(patchTicket.rejected, (state, action) => {
                 state.error = action.payload as string;
+                state.loading = false;
             }).addCase(patchTicket.pending, (state) => {
                 state.loading = true;
                 state.error = null;

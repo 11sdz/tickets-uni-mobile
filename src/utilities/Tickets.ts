@@ -64,6 +64,8 @@ export function getFormattedStatus(status: string): string {
             return "טופל";
         case "uncompleted":
             return "לא טופל";
+        case "inprogress":
+            return "בתהליך טיפול";
         default:
             return status; // Return the original status if it doesn't match any known ones
     }
