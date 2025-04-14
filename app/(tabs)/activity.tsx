@@ -24,11 +24,12 @@ const ActivityScreen = () => {
         tickets: ticketData,
     } = useSelector((state: RootState) => state.tickets);
     const dispatch: AppDispatch = useDispatch();
+    const { userData } = useSelector((state: RootState) => state.user); // Get agent from Redux store
 
     const handleGetTickets = async () => {
         try {
             // Handle registration logic here
-            dispatch(fetchTicketData({ agent: "agent1" }));
+            dispatch(fetchTicketData({ agent: userData?._id }));
         } catch (e) {
             console.log(e);
         }

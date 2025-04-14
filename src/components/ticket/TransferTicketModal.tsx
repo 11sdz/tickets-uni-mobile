@@ -44,7 +44,7 @@ const TransferTicketModal: React.FC<TransferTicketModalProps> = ({
                                 keyExtractor={(item) => item._id}
                                 renderItem={({ item }) => (
                                     <TouchableOpacity
-                                        onPress={() => onTransferTicket?.(ticketId || "", item._id)}
+                                        onPress={() => onTransferTicket?.(ticketId || "", item.userId)}
                                     >
                                         <Text>{item.firstName}</Text>
                                     </TouchableOpacity>
