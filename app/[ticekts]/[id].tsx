@@ -4,7 +4,7 @@ import { useLocalSearchParams, useNavigation } from "expo-router";
 import { selectTicketById } from "../../src/store/state/tickets/ticketSlice";
 import {  useSelector } from "react-redux";
 import {  RootState } from "../../src/store/state/store";
-import { Colors, Spacing, Typography } from "../../src/styles/index";
+import { Colors, Spacing } from "../../src/styles/index";
 import Button from "../../src/components/buttons/Button";
 import { ScrollView } from "react-native-gesture-handler";
 import RadialMenu from "../../src/components/buttons/RadialMenu";
@@ -12,10 +12,11 @@ import TicketStatusCard from "../../src/components/ticket/TicketStatusCard";
 import TicketDetailsCard from "../../src/components/ticket/TicketDetailsCard";
 import TicketDescriptionCard from "../../src/components/ticket/TicketDescription";
 import { useRadialMenu } from "../../src/hooks/useRadialMenu";
+import TransferTicketModal from "../../src/components/ticket/TransferTicketModal";
+import { useTransferMenu } from "../../src/hooks/useTransferMenu";
 
 
 const TicketScreen = () => {
-
     const navigation = useNavigation(); // Get navigation object from router
     const { id } = useLocalSearchParams(); // Get ticket ID from URL params
     const ticketId = id as string; // Ensure ticket ID is a string
@@ -40,6 +41,13 @@ const TicketScreen = () => {
         buttonRadialRef,
     } = useRadialMenu(ticketData?._id);
 
+    const {
+        showTransferMenu,
+        setShowTransferMenu,
+        allAgents,
+        handleTransferTicket,
+    } = useTransferMenu(ticketData?._id); // Get transfer menu state and actions
+
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -57,7 +65,7 @@ const TicketScreen = () => {
                     <Button
                         buttonText="העבר פניה"
                         buttonSize="small"
-                        onPress={() => console.log("Button pressed")}
+                        onPress={() => setShowTransferMenu(true)} // Open transfer menu when button is pressed
                     />
                     <Button
                         buttonText="טפל בפנייה"
@@ -76,6 +84,14 @@ const TicketScreen = () => {
                     items={radialMenuItems}
                     onClose={() => setShowRadialMenu(false)} // Close the radial menu when the close button is pressed
                     position={radialMenuPosition} // Pass the position for the radial menu
+                />
+                <TransferTicketModal
+                    visible={showTransferMenu}
+                    onClose={() => setShowTransferMenu(false)} // Close the modal when the close button is pressed
+                    currentAgent={ticketData?.agent} // Pass the current agent to the modal
+                    ticketId={ticketData?._id} // Pass the ticket ID to the modal
+                    onTransferTicket={handleTransferTicket} // Pass the transfer function to the modal
+                    agents={allAgents || []} // Pass the list of agents to the modal, fallback to an empty array if null
                 />
                 {loading && <Text>טוען...</Text>}
                 {error && <Text>{error}</Text>}

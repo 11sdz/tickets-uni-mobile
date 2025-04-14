@@ -14,3 +14,13 @@ export interface TicketData {
     createdAt: string;
     date: string;
 }
+
+export interface StatusData {
+    _id: string;
+    userId: string;
+    status: string;
+    lastUpdated: string;
+    __v: number;
+    firstName: string;
+    lastName: string;
+}
