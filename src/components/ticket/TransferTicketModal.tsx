@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import React from "react";
 import { FlatList } from "react-native-gesture-handler";
-import { Spacing } from "../../styles";
+import { Colors, Spacing, Typography } from "../../styles";
 import { StatusData } from "../../types/Types";
 
 const { width } = Dimensions.get("window"); // Get the width of the window
@@ -32,22 +32,35 @@ const TransferTicketModal: React.FC<TransferTicketModalProps> = ({
     onTransferTicket,
 }) => {
     return (
-        <Modal transparent={true} animationType="slide" visible={visible}>
+        <Modal transparent={true} animationType="fade" visible={visible}>
             <TouchableOpacity style={styles.overlay} onPress={onClose}>
                 <TouchableWithoutFeedback>
                     <View style={styles.container}>
-                        <Text>{ticketId}</Text>
-                        <Text>{currentAgent}</Text>
+                        <Text style={styles.title}>
+                            למי להעביר את הפנייה?
+                        </Text>
                         <View style={styles.flatlistContainer}>
                             <FlatList
+                                numColumns={2}
                                 data={agents}
                                 keyExtractor={(item) => item._id}
                                 renderItem={({ item }) => (
-                                    <TouchableOpacity
-                                        onPress={() => onTransferTicket?.(ticketId || "", item.userId)}
-                                    >
-                                        <Text>{item.firstName}</Text>
-                                    </TouchableOpacity>
+                                    <View style={styles.itemContainer}>
+                                        <TouchableOpacity
+                                            style={styles.nameContainer}
+                                            onPress={() =>
+                                                onTransferTicket?.(
+                                                    ticketId || "",
+                                                    item.userId
+                                                )
+                                            }
+                                        >
+                                            <Text style={styles.names}>
+                                                {item.firstName}&nbsp;
+                                                {item.lastName}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    </View>
                                 )}
                             />
                         </View>
@@ -62,12 +75,19 @@ export default TransferTicketModal;
 
 const styles = StyleSheet.create({
     container: {
+        height: width * 0.4,
+        width: width * 0.8,
         borderRadius: 10,
-        padding: Spacing.spacing.s,
+        padding: Spacing.spacing.m,
         backgroundColor: "white",
         alignItems: "center", // Center horizontally
         justifyContent: "center", // Center vertically
         zIndex: 2,
+        elevation: 10,
+        shadowColor: Colors.colors.shade,
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.5,
+        shadowRadius: 3,
     },
     overlay: {
         flex: 1,
@@ -76,7 +96,25 @@ const styles = StyleSheet.create({
         backgroundColor: "rgba(0, 0, 0, 0.09)",
     },
     flatlistContainer: {
-        height: width * 0.5,
         borderRadius: 10,
     },
+    names: {
+        ...Typography.typography.large,
+        fontFamily: "NotoSerif-Medium",
+    },
+    title: {
+        ...Typography.typography.subheading,
+        fontFamily: "Rubik-Medium",
+    },
+    nameContainer: {
+        padding: Spacing.spacing.xs,
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: "black",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    itemContainer: {
+        padding: Spacing.spacing.s,
+    }
 });

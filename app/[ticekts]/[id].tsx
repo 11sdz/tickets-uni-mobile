@@ -48,10 +48,13 @@ const TicketScreen = () => {
         handleTransferTicket,
     } = useTransferMenu(ticketData?._id); // Get transfer menu state and actions
 
+    const currentAgent = allAgents?.find((agent) => agent.userId === ticketData?.agent); // Get agent's name from all agents
+    const agentName = (currentAgent?.firstName ?? "") + " " + (currentAgent?.lastName ?? ""); // Get agent's name
+    
     return (
         <View style={styles.container}>
             <ScrollView>
-                <TicketStatusCard agent={ticketData?.agent} date={ticketData?.date} status={ticketData?.status} />
+                <TicketStatusCard agent={agentName} date={ticketData?.date} status={ticketData?.status} />
                 <TicketDetailsCard 
                     personalName={ticketData?.personalName}
                     position={ticketData?.position}
@@ -88,7 +91,7 @@ const TicketScreen = () => {
                 <TransferTicketModal
                     visible={showTransferMenu}
                     onClose={() => setShowTransferMenu(false)} // Close the modal when the close button is pressed
-                    currentAgent={ticketData?.agent} // Pass the current agent to the modal
+                    currentAgent={agentName} // Pass the current agent to the modal
                     ticketId={ticketData?._id} // Pass the ticket ID to the modal
                     onTransferTicket={handleTransferTicket} // Pass the transfer function to the modal
                     agents={allAgents || []} // Pass the list of agents to the modal, fallback to an empty array if null
