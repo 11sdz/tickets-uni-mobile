@@ -78,25 +78,30 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: "row",
         justifyContent: "space-between",
+        direction:'rtl'
     },
     generatedTitle: {
         ...Typography.typography.subheading,
         fontFamily: "Rubik-Bold",
         writingDirection: "rtl",
         alignSelf: "flex-start", // Align to the start for Hebrew text direction
+        textAlign: "left", // Align to the left for Hebrew text
     },
     location: {
         ...Typography.typography.body,
         fontFamily: "Rubik-Medium",
         color: Colors.colors.subheading, // Use subheading color for location
+        textAlign: "left", // Align to the left for Hebrew text
     },
     title: {
         ...Typography.typography.caption,
         fontFamily: "Rubik-Medium",
+        textAlign: "left",
     },
     text: {
         ...Typography.typography.body,
         fontFamily: "NotoSerif-Regular",
+        textAlign: "left", // Align to the left for Hebrew text
     },
     number: {
         ...Typography.typography.body, // Use caption style for the number to make it smaller

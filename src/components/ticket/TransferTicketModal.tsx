@@ -11,6 +11,7 @@ import React from "react";
 import { FlatList } from "react-native-gesture-handler";
 import { Colors, Spacing, Typography } from "../../styles";
 import { StatusData } from "../../types/Types";
+import Button from "../buttons/Button";
 
 const { width } = Dimensions.get("window"); // Get the width of the window
 
@@ -46,20 +47,9 @@ const TransferTicketModal: React.FC<TransferTicketModalProps> = ({
                                 keyExtractor={(item) => item._id}
                                 renderItem={({ item }) => (
                                     <View style={styles.itemContainer}>
-                                        <TouchableOpacity
-                                            style={styles.nameContainer}
-                                            onPress={() =>
-                                                onTransferTicket?.(
-                                                    ticketId || "",
-                                                    item.userId
-                                                )
-                                            }
-                                        >
-                                            <Text style={styles.names}>
-                                                {item.firstName}&nbsp;
-                                                {item.lastName}
-                                            </Text>
-                                        </TouchableOpacity>
+                                        <Button buttonSize="small" buttonText={item.firstName+" "+item.lastName} onPress={() => {
+                                            onTransferTicket?.(ticketId || "", item.userId);
+                                        }} />
                                     </View>
                                 )}
                             />

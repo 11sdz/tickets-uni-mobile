@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store/state/store";
 import { patchTicket } from "../store/state/tickets/ticketSlice";
 import { ButtonHandle, ButtonLayout } from "../components/buttons/Button";
+import { router } from "expo-router";
 
 export const useRadialMenu = (ticketId: string | undefined) => {
     const dispatch: AppDispatch = useDispatch();
@@ -33,6 +34,7 @@ export const useRadialMenu = (ticketId: string | undefined) => {
                         updateData: { status: statusMap[type] },
                     })
                 );
+                router.back(); // Navigate back after action
                 setShowRadialMenu(false);
                 break;
             }

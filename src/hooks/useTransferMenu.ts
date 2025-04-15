@@ -4,6 +4,7 @@ import { AppDispatch, RootState } from "../store/state/store";
 import { fetchStatusData } from "../store/state/user/statusSlice"; // Import fetchStatusData action
 import { patchTicket } from "../store/state/tickets/ticketSlice";
 import { StatusData } from "../types/Types";
+import { router } from "expo-router";
 
 export const useTransferMenu = (ticketId: string | undefined) => {
     const dispatch: AppDispatch = useDispatch();
@@ -24,6 +25,7 @@ export const useTransferMenu = (ticketId: string | undefined) => {
                 patchTicket({ _id: ticketId, updateData: { agent: newAgent } })
             );
             console.log(`Transferring ticket ${ticketId} to agent ${newAgent}`);
+            router.back(); // Navigate back after transferring
             setShowTransferMenu(false); // Close the transfer menu after transferring
         },
         [dispatch,ticketId] // Add ticketId to dependencies if needed

@@ -13,6 +13,7 @@ import {
 } from "react-native-gesture-handler";
 import Button from "../buttons/Button";
 import { Spacing } from "../../styles";
+import { textInputStyles } from "../user/textInputs";
 
 const { width } = Dimensions.get("window"); // Get the width of the window
 
@@ -92,8 +93,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
     },textInput:{
-        height: width*0.2,
-        borderRadius:10,
-        padding:Spacing.spacing.s,
+        ...textInputStyles.input,
     }
 });
