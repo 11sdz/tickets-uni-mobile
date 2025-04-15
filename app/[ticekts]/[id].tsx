@@ -14,12 +14,16 @@ import TicketDescriptionCard from "../../src/components/ticket/TicketDescription
 import { useRadialMenu } from "../../src/hooks/useRadialMenu";
 import TransferTicketModal from "../../src/components/ticket/TransferTicketModal";
 import { useTransferMenu } from "../../src/hooks/useTransferMenu";
+import { useAddComment } from "../../src/hooks/useAddComment";
+import AddCommentModal from "../../src/components/ticket/AddCommentModal";
+import CommentsCard from "../../src/components/ticket/CommentsCard";
 
 
 const TicketScreen = () => {
     const navigation = useNavigation(); // Get navigation object from router
     const { id } = useLocalSearchParams(); // Get ticket ID from URL params
     const ticketId = id as string; // Ensure ticket ID is a string
+    
 
     const ticketData = useSelector((state: RootState) =>
         selectTicketById(state, ticketId)
@@ -50,7 +54,17 @@ const TicketScreen = () => {
 
     const currentAgent = allAgents?.find((agent) => agent.userId === ticketData?.agent); // Get agent's name from all agents
     const agentName = (currentAgent?.firstName ?? "") + " " + (currentAgent?.lastName ?? ""); // Get agent's name
-    
+
+    const {
+        showAddComment,
+        setShowAddComment,
+        addComment,
+        commentText,
+        setCommentText,
+    } = useAddComment(ticketData?._id ?? "", currentAgent?._id ?? "", agentName); // Get add comment state and actions
+
+
+    console.log("comments", ticketData?.comments)
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -79,7 +93,7 @@ const TicketScreen = () => {
                     <Button
                         buttonText="הוסף הערה"
                         buttonSize="small"
-                        onPress={() => console.log("Another button pressed")}
+                        onPress={() => setShowAddComment(true)}
                     />
                 </View>
                 <RadialMenu
@@ -96,6 +110,14 @@ const TicketScreen = () => {
                     onTransferTicket={handleTransferTicket} // Pass the transfer function to the modal
                     agents={allAgents || []} // Pass the list of agents to the modal, fallback to an empty array if null
                 />
+                <AddCommentModal
+                    visible={showAddComment}
+                    onClose={() => setShowAddComment(false)}
+                    onAddComment={addComment}
+                    commentText={commentText}
+                    setCommentText={setCommentText}
+                />
+                <CommentsCard comments={ticketData?.comments} />
                 {loading && <Text>טוען...</Text>}
                 {error && <Text>{error}</Text>}
             </ScrollView>

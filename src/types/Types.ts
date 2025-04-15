@@ -13,6 +13,15 @@ export interface TicketData {
     generatedTitle: string;
     createdAt: string;
     date: string;
+    comments: Comment[];
+}
+
+export interface Comment {
+    _id: string;
+    authorId: string;
+    authorName: string;
+    timestamp: string;
+    content: string;
 }
 
 export interface StatusData {

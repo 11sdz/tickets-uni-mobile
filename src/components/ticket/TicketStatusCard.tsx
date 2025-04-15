@@ -10,12 +10,18 @@ interface TicketStatusCardProps {
     status?: string;
 }
 
-const TicketStatusCard: React.FC<TicketStatusCardProps> = ({ agent, date, status }) => {
+const TicketStatusCard: React.FC<TicketStatusCardProps> = ({
+    agent,
+    date,
+    status,
+}) => {
     return (
         <View style={styles.card}>
             <View style={[styles.header, styles.row]}>
                 <FieldRow label="בטיפול של:" value={agent} />
-                <Text style={styles.title}>{date ? getFormattedDate(date) : ""}</Text>
+                <Text style={styles.title}>
+                    {date ? getFormattedDate(date) : ""}
+                </Text>
             </View>
             <FieldRow
                 label="סטטוס:"

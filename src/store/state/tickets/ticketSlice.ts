@@ -47,6 +47,34 @@ export const patchTicket = createAsyncThunk(
     }
 );
 
+export const postComment = createAsyncThunk(
+    'ticket/postComment',
+    async (
+        { ticketId, commentText, authorId, authorName }: { ticketId: string; commentText: string; authorId: string; authorName: string},
+        { rejectWithValue }
+    ) => {
+        try {
+            const commentData = {
+                authorId: authorId,
+                authorName: authorName,
+                content: commentText,
+                timestamp: new Date().toISOString(), // Assuming you want to send the current timestamp
+            };
+
+            console.log('ticketID:', ticketId);
+            console.log('commentID,:',commentData.authorId)
+
+            const response = await axiosInstance.post(`/tickets/${ticketId}/comments`, commentData);
+            return response.data;  // Returning the newly added comment
+        } catch (error: any) {
+            return rejectWithValue(
+                error.response?.data?.message || 'Something went wrong while posting comment'
+            );
+        }
+    }
+);
+
+
 
 const ticketSlice = createSlice({
     name: 'ticket',
@@ -86,6 +114,21 @@ const ticketSlice = createSlice({
                 state.error = action.payload as string;
                 state.loading = false;
             }).addCase(patchTicket.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            }).addCase(postComment.fulfilled, (state, action) => {
+                const updatedTicket = action.payload; // full updated ticket with comments
+                console.log('updatedTicket:', updatedTicket)
+                const index = state.tickets.findIndex(ticket => ticket._id === updatedTicket._id);
+                if (index !== -1) {
+                    state.tickets[index] = updatedTicket;
+                }
+                state.loading = false;
+                state.error = null;
+            }).addCase(postComment.rejected, (state, action) => {
+                state.error = action.payload as string;
+                state.loading = false;
+            }).addCase(postComment.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             });
