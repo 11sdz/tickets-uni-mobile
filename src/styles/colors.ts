@@ -15,4 +15,7 @@ export const colors = {
     ListHeader: '#FFFFFF', // Background color for list header
     filterButton: '#888888', // Background color for filter button
     green: '#328E6E', // Green color for success messages or indicators
+    blue: '#3A59D1',
+    red: '#FF6363',
+    orange:'#FFA55D'
 }; // Add more colors as needed

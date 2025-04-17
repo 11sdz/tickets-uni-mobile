@@ -8,10 +8,19 @@ import {
 import React, { ElementRef, useRef, useState } from "react";
 import { TicketData } from "../../types/Types";
 import { Colors, Spacing, Typography } from "../../styles";
-import { getLocationText } from "../../utilities/Tickets";
+import { getFormattedStatus, getLocationText, getTicketStatusColor } from "../../utilities/Tickets";
 import PhoneNumbers from "./PhoneNumbers";
 
 const { width } = Dimensions.get("window");
+
+const Badge = ({ label, color = "#4CAF50", textColor = "#fff" }) => {
+    const status = getFormattedStatus(label); // Get the formatted status
+    return (
+      <View style={[styles.badge, { backgroundColor: color }]}>
+        <Text style={[styles.badgeText, { color: textColor }]}>{status}</Text>
+      </View>
+    );
+  };
 
 type TicketCardProps = {
     ticketData: TicketData;
@@ -66,6 +75,9 @@ const TicketCard = ({ ticketData, onPress }: TicketCardProps) => {
                 officeNumber={ticketData.officeNumber}
                 position={phoneModalXY || undefined} // Pass the position to the PhoneNumbers component for modal positioning
             />
+            <Badge
+                label={ticketData.status}
+                color={getTicketStatusColor(ticketData.status)}/>
             {/* <View style={styles.seperator} />
             <Text style={styles.text}>{ticketData.text}</Text> */}
         </TouchableOpacity>
@@ -130,5 +142,18 @@ const styles = StyleSheet.create({
         width: "100%",
         backgroundColor: Colors.colors.shade,
         marginVertical: Spacing.spacing.s,
-    },
+    }, badge: {
+        paddingHorizontal: Spacing.spacing.xs,
+        paddingVertical: Spacing.spacing.xs,
+        borderRadius: 7,
+        alignSelf: 'flex-start',
+        position: "absolute",
+        top: Spacing.spacing.s,
+        right: Spacing.spacing.s,
+      },badgeText:{
+        ...Typography.typography.small,
+        fontFamily: "Rubik-Medium",
+        textAlign: "center",
+        writingDirection: "rtl",
+      }
 });

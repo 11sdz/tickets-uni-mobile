@@ -24,3 +24,4 @@ export function getUserStatus(
     }
     // This can be used to determine the color of the status indicator
 }
+

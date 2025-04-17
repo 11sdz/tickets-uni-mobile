@@ -1,3 +1,4 @@
+import { Colors } from "../styles";
 
 export function getLocationText(location:string,length?:number):string{
     const len = length || 40; // Default length is 40 if not provided
@@ -65,8 +66,23 @@ export function getFormattedStatus(status: string): string {
         case "uncompleted":
             return "לא טופל";
         case "inprogress":
-            return "בתהליך טיפול";
+            return "בטיפול";
         default:
             return status; // Return the original status if it doesn't match any known ones
     }
 }
+
+export function getTicketStatusColor(status: string) : string {
+    switch (status) {
+      case "open":
+        return Colors.colors.blue;
+      case "completed":
+        return Colors.colors.green;
+        case "uncompleted":
+        return Colors.colors.red;
+      case "inprogress":
+        return Colors.colors.orange; // Assuming you have a yellow color defined for in-progress
+      default:
+        return Colors.colors.blue;
+    }
+  };

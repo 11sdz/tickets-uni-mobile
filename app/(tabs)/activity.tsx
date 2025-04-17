@@ -11,7 +11,6 @@ import { router } from "expo-router";
 import EmptyList from "../../src/components/ticket/EmptyList";
 import ListHeader from "../../src/components/ticket/ListHeader";
 import ListFooter from "../../src/components/ticket/ListFooter";
-import FilterButton from "../../src/components/buttons/FilterButton";
 
 const ItemSeparator = () => (
     <View style={{ height: Spacing.spacing.s }} />
