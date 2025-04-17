@@ -11,6 +11,7 @@ import { router } from "expo-router";
 import EmptyList from "../../src/components/ticket/EmptyList";
 import ListHeader from "../../src/components/ticket/ListHeader";
 import ListFooter from "../../src/components/ticket/ListFooter";
+import { sortTicketData } from "../../src/utilities/Tickets";
 
 const ItemSeparator = () => (
     <View style={{ height: Spacing.spacing.s }} />
@@ -43,21 +44,18 @@ const ActivityScreen = () => {
         console.log("Open ticket id:", ticketId);
         router.push(`/tickets/${ticketId}`);
     };
-
     useEffect(() => {
         if (!statusFilter) {
             setFilteredTickets(ticketData);
-        }
-        else if (statusFilter === "all") {
-            setFilteredTickets(ticketData);
-        }
-        else{
-            const filtered = ticketData.filter((ticket) => ticket.status === statusFilter);
+        } else if (statusFilter === "all") {
+            const sortedByStatusThenDate = sortTicketData(ticketData, "statusThenDate");
+            setFilteredTickets(sortedByStatusThenDate);
+        } else {
+            const sortedByStatusThenDate = sortTicketData(ticketData, "statusThenDate");
+            const filtered = sortedByStatusThenDate.filter((ticket) => ticket.status === statusFilter);
             setFilteredTickets(filtered);
-
         }
-    }
-    , [ticketData, statusFilter]);
+    }, [ticketData, statusFilter]);
 
     return (
         <View style={styles.container}>
