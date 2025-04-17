@@ -61,9 +61,6 @@ export const postComment = createAsyncThunk(
                 timestamp: new Date().toISOString(), // Assuming you want to send the current timestamp
             };
 
-            console.log('ticketID:', ticketId);
-            console.log('commentID,:',commentData.authorId)
-
             const response = await axiosInstance.post(`/tickets/${ticketId}/comments`, commentData);
             return response.data;  // Returning the newly added comment
         } catch (error: any) {
@@ -118,7 +115,6 @@ const ticketSlice = createSlice({
                 state.error = null;
             }).addCase(postComment.fulfilled, (state, action) => {
                 const updatedTicket = action.payload; // full updated ticket with comments
-                console.log('updatedTicket:', updatedTicket)
                 const index = state.tickets.findIndex(ticket => ticket._id === updatedTicket._id);
                 if (index !== -1) {
                     state.tickets[index] = updatedTicket;

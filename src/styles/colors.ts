@@ -1,4 +1,3 @@
-import ListHeader from "../components/ticket/ListHeader";
 
 export const colors = {
     primary: '#ADE8F4',
@@ -14,4 +13,6 @@ export const colors = {
     modal: '#FFFFFF', // Background color for modal content
     seperator: '#444', // Color for separator lines
     ListHeader: '#FFFFFF', // Background color for list header
+    filterButton: '#888888', // Background color for filter button
+    green: '#328E6E', // Green color for success messages or indicators
 }; // Add more colors as needed

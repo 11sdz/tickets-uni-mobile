@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
     button: {
         flexDirection: "row",
         justifyContent: "center",
+        alignItems: "center",
         backgroundColor: Colors.colors.tint,
         borderRadius: Buttons.rounded.borderRadius,
         elevation: 3,

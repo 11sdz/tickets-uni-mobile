@@ -38,5 +38,6 @@ const styles = StyleSheet.create({
         fontFamily: "Rubik-Regular",
         color: Colors.colors.heading,
         maxWidth: width * 0.8, // Set maxWidth to 80% of the screen width
+        textAlign:'left'
     },
 })
