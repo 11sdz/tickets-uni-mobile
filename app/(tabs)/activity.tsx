@@ -12,11 +12,10 @@ import EmptyList from "../../src/components/ticket/EmptyList";
 import ListHeader from "../../src/components/ticket/ListHeader";
 import ListFooter from "../../src/components/ticket/ListFooter";
 import { sortTicketData } from "../../src/utilities/Tickets";
+import TicketsCount from "../../src/components/ticket/TicketsCount";
+import LoadingModal from "../../src/components/LoadingModal";
 
-const ItemSeparator = () => (
-    <View style={{ height: Spacing.spacing.s }} />
-);
-
+const ItemSeparator = () => <View style={{ height: Spacing.spacing.s }} />;
 
 const ActivityScreen = () => {
     const {
@@ -29,7 +28,6 @@ const ActivityScreen = () => {
 
     const [statusFilter, setStatusFilter] = useState("all"); // Default to "all" status
     const [filteredTickets, setFilteredTickets] = useState(ticketData); // Initialize filtered tickets with all tickets
-
 
     const handleGetTickets = async () => {
         try {
@@ -48,35 +46,59 @@ const ActivityScreen = () => {
         if (!statusFilter) {
             setFilteredTickets(ticketData);
         } else if (statusFilter === "all") {
-            const sortedByStatusThenDate = sortTicketData(ticketData, "statusThenDate");
+            const sortedByStatusThenDate = sortTicketData(
+                ticketData,
+                "statusThenDate"
+            );
             setFilteredTickets(sortedByStatusThenDate);
         } else {
-            const sortedByStatusThenDate = sortTicketData(ticketData, "statusThenDate");
-            const filtered = sortedByStatusThenDate.filter((ticket) => ticket.status === statusFilter);
+            const sortedByStatusThenDate = sortTicketData(
+                ticketData,
+                "statusThenDate"
+            );
+            const filtered = sortedByStatusThenDate.filter(
+                (ticket) => ticket.status === statusFilter
+            );
             setFilteredTickets(filtered);
         }
     }, [ticketData, statusFilter]);
 
     return (
         <View style={styles.container}>
-            <Button
-                buttonText="רענן פניות"
-                buttonSize="medium"
-                onPress={handleGetTickets}
-            />
-            {loading && <Text>Loading...</Text>}
-            {error && <Text>{error}</Text>}
+            <View style={styles.headerContainer}>
+                <Button
+                    buttonSize="xsmall"
+                    onPress={handleGetTickets}
+                    iconName="arrows-rotate"
+                />
+                <TicketsCount ticketData={ticketData}/>
+                <LoadingModal
+                    loading={loading}
+                    message={"טוען פניות"}/>
+                {error && <Text>{error}</Text>}
+            </View>
             <View style={styles.listContainer}>
-            <FlatList
-                data={filteredTickets}
-                ItemSeparatorComponent={ItemSeparator}
-                renderItem={({ item }) => (
-                    <TicketCard ticketData={item} onPress={handleTicketPress} />
-                )}
-                ListEmptyComponent={() => (EmptyList())}
-                ListHeaderComponent={() => (ListHeader( {statusFilter, setStatusFilter, hasTickets: ticketData.length > 0}))}
-                ListFooterComponent={() => (ticketData.length > 0 && ListFooter())}
-            />
+                <FlatList
+                    data={filteredTickets}
+                    ItemSeparatorComponent={ItemSeparator}
+                    renderItem={({ item }) => (
+                        <TicketCard
+                            ticketData={item}
+                            onPress={handleTicketPress}
+                        />
+                    )}
+                    ListEmptyComponent={() => EmptyList()}
+                    ListHeaderComponent={() =>
+                        ListHeader({
+                            statusFilter,
+                            setStatusFilter,
+                            hasTickets: ticketData.length > 0,
+                        })
+                    }
+                    ListFooterComponent={() =>
+                        ticketData.length > 0 && ListFooter()
+                    }
+                />
             </View>
         </View>
     );
@@ -94,9 +116,14 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingVertical: Spacing.spacing.m,
         paddingHorizontal: Spacing.spacing.s,
-    },filtersContainer:{
+    },
+    filtersContainer: {
         flexDirection: "row",
         justifyContent: "space-between",
         paddingVertical: Spacing.spacing.s,
+    },headerContainer:{
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
     }
 });

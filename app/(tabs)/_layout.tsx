@@ -2,18 +2,6 @@ import React from "react";
 import { Tabs } from "expo-router";
 import { Typography } from "../../src/styles";
 import Icon from "../../src/components/Icon";
-
-const getTabBarIcon = ({ route, color, size }) => {
-    let iconName;
-  
-    if (route.name === "activity") {
-      iconName = "comment"; // FontAwesome icon for 'activity'
-    } else if (route.name === "home") {
-      iconName = "home"; // FontAwesome icon for 'home'
-    }
-  
-    return <Icon name={iconName} size={size} color={color} />;
-  };
   
 
 const TabsLayout = () => {

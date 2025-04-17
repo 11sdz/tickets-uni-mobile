@@ -9,6 +9,7 @@ import { fetchUserData } from "../../src/store/state/user/userSlice";
 import { fetchStatusData } from "../../src/store/state/user/statusSlice";
 import {  Colors, Spacing } from "../../src/styles";
 import Button from "../../src/components/buttons/Button";
+import LoadingModal from "../../src/components/LoadingModal";
 
 const Login = () => {
 
@@ -37,7 +38,7 @@ const Login = () => {
         <View style={styles.container}>
             <AuthForm onSubmit={handleLogin} />
             <Button buttonText="צור משתמש" buttonSize="large" onPress={() => router.push("/(auth)/register")} />
-            {loading && <Text>Loading...</Text>}
+            <LoadingModal loading={loading} message="מתחבר..." />
             {error && <Text>{error}</Text>}
             {data && token && <Text>{data.message} {token} </Text>}
         </View>

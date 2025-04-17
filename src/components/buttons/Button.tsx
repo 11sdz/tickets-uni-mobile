@@ -23,7 +23,7 @@ export interface ButtonHandle {
 }
 
 interface ButtonProps {
-    buttonText: string;
+    buttonText?: string;
     buttonSize: keyof typeof Buttons.buttonSizes;
     onPress: () => void;
     iconName?: string;

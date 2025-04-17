@@ -88,8 +88,8 @@ export function getTicketStatusColor(status: string): string {
 
 // Sort tickets by status using a custom order
 const statusOrder = {
-    open: 1,
-    inprogress: 2,
+    inprogress: 1,
+    open: 2,
     completed: 3,
     uncompleted: 4,
 };

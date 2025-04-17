@@ -6,6 +6,7 @@ import { registerUser } from '../../src/store/state/api/authSlice'
 import { RootState, AppDispatch } from '../../src/store/state/store'
 import { Colors, Spacing } from '../../src/styles'
 import { router } from 'expo-router'
+import LoadingModal from '../../src/components/LoadingModal'
 
 const Register = () => {
   const {loading, error ,data} = useSelector((state:RootState) => state.auth)
@@ -24,7 +25,7 @@ const Register = () => {
   return (
     <View style={styles.container}>
       <RegisterForm onSubmit={handleRegister}/>
-      {loading && <Text>Loading...</Text>}
+      <LoadingModal loading={loading} message="מבצע הרשמה..." />
       {error && <Text>{error}</Text>}
       {data && <Text>{data.message}</Text>}
     </View>
