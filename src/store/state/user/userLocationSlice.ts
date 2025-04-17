@@ -25,7 +25,7 @@ export const updateLocation = createAsyncThunk(
     ) => {
       try {
         const response = await axiosInstance.post(
-          `/userLocation/${userId}/update`,
+          `/location/${userId}/update`,
           {
             latitude: coordinates[1],
             longitude: coordinates[0],

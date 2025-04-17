@@ -79,7 +79,7 @@ const LocationComponent = ({ userId }: UserLocationProps) => {
             {permission ? (
                 <Text>Location permission granted</Text>
             ) : (
-                <Text>Location permission not grante</Text>
+                <Text>Location permission not granted!</Text>
             )}
             {/* You can add more UI elements here if needed */}
             {/* For example, a button to manually update location */}
