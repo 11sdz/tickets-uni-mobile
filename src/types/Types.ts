@@ -33,3 +33,12 @@ export interface StatusData {
     firstName: string;
     lastName: string;
 }
+
+export interface UserLocation {
+    _id: string; // MongoDB document ID
+    userId: string; // User's ID (ObjectId string)
+    type: 'Point'; // GeoJSON type
+    coordinates: [number, number]; // [longitude, latitude]
+    updatedAt?: string; // Optional: if using timestamps in your schema
+    createdAt?: string;
+  }

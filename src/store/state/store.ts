@@ -2,7 +2,8 @@ import {configureStore} from '@reduxjs/toolkit';
 import userSlice from './user/userSlice';
 import authSlice from './api/authSlice';
 import ticketSlice from './tickets/ticketSlice';
-import statusSlice from './user/statusSlice'
+import statusSlice from './user/statusSlice';
+import userLocationSlice from './user/userLocationSlice';
 
 export const store = configureStore({
     reducer:{
@@ -11,6 +12,7 @@ export const store = configureStore({
         auth: authSlice,
         tickets: ticketSlice,
         status: statusSlice,
+        location: userLocationSlice,
     }
 });
 

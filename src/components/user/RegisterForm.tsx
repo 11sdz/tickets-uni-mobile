@@ -7,11 +7,12 @@ import {
     Platform,
     TextInput,
     View,
+    ScrollView,
 } from "react-native";
 import React from "react";
 import { textInputStyles } from "./textInputs";
 import Button from "../buttons/Button";
-import { Spacing } from "../../styles";
+import { Colors, Spacing, Typography } from "../../styles";
 
 interface RegisterFormProps {
     onSubmit: (
@@ -43,8 +44,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
             email === "" ||
             password === "" ||
             firstName === "" ||
-            lastName === "" ||
-            passkey === ""
+            lastName === ""
         ) {
             alert("Please fill in all fields");
             return;
@@ -54,11 +54,14 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
 
     return (
         <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={{ flex: 1, justifyContent: "center", padding: Spacing.spacing.s }}
+            behavior={Platform.OS === "ios" ? "padding" : undefined}
         >
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View>
-                    <Text>טופס רישום</Text>
+            <ScrollView
+                    contentContainerStyle={styles.container}
+                    keyboardShouldPersistTaps="handled"
+                >
                     <TextInput
                         style={textInputStyles.input}
                         placeholder="שם משתמש באנגלית"
@@ -87,13 +90,13 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
                     />
                     <TextInput
                         style={textInputStyles.input}
-                        placeholder="שם פרטי"
+                        placeholder="שם פרטי בעברית"
                         value={firstName}
                         onChangeText={setFirstName}
                     />
                     <TextInput
                         style={textInputStyles.input}
-                        placeholder="שם משפחה"
+                        placeholder="שם משפחה בעברית"
                         value={lastName}
                         onChangeText={setLastName}
                     />
@@ -108,7 +111,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
                         buttonSize="large"
                         onPress={() => handleVerify()}
                     />
-                </View>
+                </ScrollView>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
     );
@@ -116,4 +119,10 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
 
 export default RegisterForm;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    container:{
+        flexGrow: 1,
+        justifyContent: "center",
+        paddingBottom: 60, // Gives space below last input
+    }
+});
