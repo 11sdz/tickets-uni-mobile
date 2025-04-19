@@ -8,7 +8,9 @@ A mobile application designed to improve the accessibility of service tickets fo
 
 - ✅ Developed using **React Native** and **TypeScript**.
 - 🌐 Backend powered by **Node.js** and **Express**.
+ [Service Ticket API](https://github.com/11sdz/service-ticket-api) - The backend API for the service ticket system used by Tickets Uni Mobile.
 - 🧩 Includes a **browser extension** that extracts ticket data from a web system and forwards it to the backend via a REST API.
+ [Tickets Uni Extension](https://github.com/11sdz/tickes-uni-extention) - The browser extension that captures and sends support ticket data to the backend server.
 - 🎯 Designed to be more user-friendly and accessible than the current mobile interface provided by the ticketing system.
 
 ---
