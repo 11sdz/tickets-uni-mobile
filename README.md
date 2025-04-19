@@ -22,12 +22,18 @@ A mobile application designed to improve the accessibility of service tickets fo
 
 ---
 
-## 📸 Screenshots and Videos
-| Home Screen | Ticket Details | Ticket List View |
-|-------------|----------------|------------------|
-| ![Home Screen](https://github.com/11sdz/tickets-uni-mobile/raw/master/samples/homescreen.jpg) | [![Watch](https://img.youtube.com/vi/cS91_n0GT3Y/hqdefault.jpg)](https://www.youtube.com/shorts/cS91_n0GT3Y) | [![Watch](https://img.youtube.com/vi/xvY2gQ21zdw/hqdefault.jpg)](https://www.youtube.com/shorts/xvY2gQ21zdw) |
+## 🧹 Code Quality and Modularity
 
-> 🎬 Tap the images above to view the ticket screens in action.
+The project is built with a strong focus on modularity, readability, and clean code practices. The codebase is organized into reusable components, and each module has a single responsibility, making it easier to maintain, test, and extend. The project adheres to best practices for state management, component design, and code structure, ensuring that the app remains scalable and maintainable as it grows.
+
+---
+
+## 📸 Screenshots and Videos
+![Home Screen](https://github.com/11sdz/tickets-uni-mobile/blob/master/samples/homescreen.jpg)
+[![Ticket screen](https://img.youtube.com/vi/cS91_n0GT3Y/hqdefault.jpg)](https://youtube.com/shorts/cS91_n0GT3Y?feature=share)
+[![Main Tickets screen](https://img.youtube.com/vi/xvY2gQ21zdw/hqdefault.jpg)](https://www.youtube.com/watch?v=xvY2gQ21zdw)
+
+> 🖼️ Replace `PLACEHOLDER_FOR_*` with actual screenshot URLs or file paths after uploading them to the repo.
 
 ---
 
