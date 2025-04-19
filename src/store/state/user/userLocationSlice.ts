@@ -6,7 +6,7 @@ export const fetchUserLocation = createAsyncThunk(
     "userLocation/fetchUserLocation",
     async (_, { rejectWithValue }) => {
         try {
-            const response = await axiosInstance.get(`/userLocation`);
+            const response = await axiosInstance.get(`/location`);
             return response.data;
         } catch (error: any) {
             return rejectWithValue(

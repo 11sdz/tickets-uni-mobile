@@ -53,76 +53,71 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
     };
 
     return (
-        <KeyboardAvoidingView
-            style={{ flex: 1, justifyContent: "center", padding: Spacing.spacing.s }}
-            behavior={Platform.OS === "ios" ? "padding" : undefined}
-        >
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View>
             <ScrollView
-                    contentContainerStyle={styles.container}
-                    keyboardShouldPersistTaps="handled"
-                >
-                    <TextInput
-                        style={textInputStyles.input}
-                        placeholder="שם משתמש באנגלית"
-                        value={userName}
-                        onChangeText={setUserName}
-                    />
-                    <TextInput
-                        style={textInputStyles.input}
-                        placeholder="מייל"
-                        value={email}
-                        onChangeText={setEmail}
-                    />
-                    <TextInput
-                        style={textInputStyles.input}
-                        placeholder="סיסמה"
-                        value={password}
-                        onChangeText={setPassword}
-                        secureTextEntry
-                    />
-                    <TextInput
-                        style={textInputStyles.input}
-                        placeholder="אשר סיסמה"
-                        value={confirmPassword}
-                        onChangeText={setConfirmPassword}
-                        secureTextEntry
-                    />
-                    <TextInput
-                        style={textInputStyles.input}
-                        placeholder="שם פרטי בעברית"
-                        value={firstName}
-                        onChangeText={setFirstName}
-                    />
-                    <TextInput
-                        style={textInputStyles.input}
-                        placeholder="שם משפחה בעברית"
-                        value={lastName}
-                        onChangeText={setLastName}
-                    />
-                    <TextInput
-                        style={textInputStyles.input}
-                        placeholder="קוד עבור משתמש אדמין"
-                        value={passkey}
-                        onChangeText={setPasskey}
-                    />
-                    <Button
-                        buttonText="צור משתמש"
-                        buttonSize="large"
-                        onPress={() => handleVerify()}
-                    />
-                </ScrollView>
-            </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
+                contentContainerStyle={styles.container}
+                keyboardShouldPersistTaps="handled"
+            >
+                <TextInput
+                    style={textInputStyles.input}
+                    placeholder="שם משתמש באנגלית"
+                    value={userName}
+                    onChangeText={setUserName}
+                />
+                <TextInput
+                    style={textInputStyles.input}
+                    placeholder="מייל"
+                    value={email}
+                    onChangeText={setEmail}
+                />
+                <TextInput
+                    style={textInputStyles.input}
+                    placeholder="סיסמה"
+                    value={password}
+                    onChangeText={setPassword}
+                    secureTextEntry
+                />
+                <TextInput
+                    style={textInputStyles.input}
+                    placeholder="אשר סיסמה"
+                    value={confirmPassword}
+                    onChangeText={setConfirmPassword}
+                    secureTextEntry
+                />
+                <TextInput
+                    style={textInputStyles.input}
+                    placeholder="שם פרטי בעברית"
+                    value={firstName}
+                    onChangeText={setFirstName}
+                />
+                <TextInput
+                    style={textInputStyles.input}
+                    placeholder="שם משפחה בעברית"
+                    value={lastName}
+                    onChangeText={setLastName}
+                />
+                <TextInput
+                    style={textInputStyles.input}
+                    placeholder="קוד עבור משתמש אדמין"
+                    value={passkey}
+                    onChangeText={setPasskey}
+                />
+                <Button
+                    buttonText="צור משתמש"
+                    buttonSize="large"
+                    onPress={() => handleVerify()}
+                />
+            </ScrollView>
+        </View>
     );
 };
 
 export default RegisterForm;
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         flexGrow: 1,
         justifyContent: "center",
         paddingBottom: 60, // Gives space below last input
-    }
+    },
 });

@@ -1,4 +1,12 @@
-import { StyleSheet, Text, View } from "react-native";
+import {
+    Keyboard,
+    KeyboardAvoidingView,
+    Platform,
+    StyleSheet,
+    Text,
+    TouchableWithoutFeedback,
+    View,
+} from "react-native";
 import React from "react";
 import AuthForm from "../../src/components/user/AuthForm";
 import { useRouter } from "expo-router";
@@ -7,14 +15,13 @@ import { loginUser } from "../../src/store/state/api/authSlice";
 import { RootState, AppDispatch } from "../../src/store/state/store";
 import { fetchUserData } from "../../src/store/state/user/userSlice";
 import { fetchStatusData } from "../../src/store/state/user/statusSlice";
-import {  Colors, Spacing } from "../../src/styles";
+import { Colors, Spacing } from "../../src/styles";
 import Button from "../../src/components/buttons/Button";
 import LoadingModal from "../../src/components/LoadingModal";
 
 const Login = () => {
-
     const router = useRouter();
-    const { loading, error, data ,token} = useSelector(
+    const { loading, error, data, token } = useSelector(
         (state: RootState) => state.auth
     );
 
@@ -23,7 +30,9 @@ const Login = () => {
     const handleLogin = async (username: string, password: string) => {
         try {
             // Handle registration logic here
-            const loginResponse = await dispatch(loginUser({ username, password })).unwrap();
+            const loginResponse = await dispatch(
+                loginUser({ username, password })
+            ).unwrap();
 
             if (loginResponse) {
                 dispatch(fetchUserData());
@@ -37,10 +46,18 @@ const Login = () => {
     return (
         <View style={styles.container}>
             <AuthForm onSubmit={handleLogin} />
-            <Button buttonText="צור משתמש" buttonSize="large" onPress={() => router.push("/(auth)/register")} />
+            <Button
+                buttonText="צור משתמש"
+                buttonSize="large"
+                onPress={() => router.push("/(auth)/register")}
+            />
             <LoadingModal loading={loading} message="מתחבר..." />
             {error && <Text>{error}</Text>}
-            {data && token && <Text>{data.message} {token} </Text>}
+            {data && token && (
+                <Text>
+                    {data.message} {token}{" "}
+                </Text>
+            )}
         </View>
     );
 };
@@ -48,9 +65,9 @@ const Login = () => {
 export default Login;
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         flex: 1,
         backgroundColor: Colors.colors.background,
         padding: Spacing.spacing.m,
-    }
+    },
 });

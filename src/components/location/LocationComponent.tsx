@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { AppDispatch } from '../../store/state/store';
-import { useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from '../../store/state/store';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Location from 'expo-location';
 import { updateLocation } from '../../store/state/user/userLocationSlice';
 import { Text, View } from 'react-native';
@@ -10,6 +10,8 @@ interface UserLocationProps {
 }
 
 const LocationComponent = ({ userId }: UserLocationProps) => {
+    const status = useSelector((state: RootState) => state.status.StatusData);
+    console.log("Status", status)
     const [permission, setPermission] = useState(false);
     const dispatch: AppDispatch = useDispatch();
 
@@ -76,13 +78,6 @@ const LocationComponent = ({ userId }: UserLocationProps) => {
     return (
         <View>
             <Text>Location Component</Text>
-            {permission ? (
-                <Text>Location permission granted</Text>
-            ) : (
-                <Text>Location permission not granted!</Text>
-            )}
-            {/* You can add more UI elements here if needed */}
-            {/* For example, a button to manually update location */}
         </View>
     ); // This component doesn't need to render anything
 };
