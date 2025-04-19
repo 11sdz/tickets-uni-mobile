@@ -119,5 +119,6 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         justifyContent: "center",
         paddingBottom: 60, // Gives space below last input
+        paddingHorizontal: Spacing.spacing.s,
     },
 });

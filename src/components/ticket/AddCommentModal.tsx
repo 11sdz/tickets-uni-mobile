@@ -39,7 +39,6 @@ const AddCommentModal: React.FC<AddCommentModalProps> = ({
             <View style={styles.overlay}>
                 <View style={styles.container}>
                     <View>
-                        <Text>Add a comment:</Text>
                         <View style={styles.textInput}>
                             <TextInput
                                 value={commentText}
@@ -52,7 +51,7 @@ const AddCommentModal: React.FC<AddCommentModalProps> = ({
                         <View style={styles.buttonContainer}>
                             <Button
                                 buttonSize={"small"}
-                                buttonText="Add Comment"
+                                buttonText="הוסף הערה"
                                 onPress={() =>
                                     onAddComment?.(
                                         ticketId || "",
@@ -62,7 +61,7 @@ const AddCommentModal: React.FC<AddCommentModalProps> = ({
                             />
                             <Button
                                 buttonSize={"small"}
-                                buttonText="Close"
+                                buttonText="סגור"
                                 onPress={onClose}
                             />
                         </View>
