@@ -23,6 +23,8 @@ A mobile application designed to improve the accessibility of service tickets fo
 - **Add comments** and **manage the status of tickets**.
 - **Phone dial linking** for quick contact with customers.
 - **Transfer tickets** between technicians.
+
+To be added:
 - **Shift diary** to see all shifts worked.
 - **Better statistics** for tracking work performance and ticket progress.
 
