@@ -19,6 +19,12 @@ A mobile application designed to improve the accessibility of service tickets fo
 - Automatically sync data from the web system via browser extension.
 - Access detailed ticket info on the go.
 - Optimized for field performance and readability.
+- **Map to see locations of active technicians** for better ticket management.
+- **Add comments** and **manage the status of tickets**.
+- **Phone dial linking** for quick contact with customers.
+- **Transfer tickets** between technicians.
+- **Shift diary** to see all shifts worked.
+- **Better statistics** for tracking work performance and ticket progress.
 
 ---
 
