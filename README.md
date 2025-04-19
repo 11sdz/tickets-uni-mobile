@@ -26,12 +26,14 @@ A mobile application designed to improve the accessibility of service tickets fo
 
 The project is built with a strong focus on modularity, readability, and clean code practices. The codebase is organized into reusable components, and each module has a single responsibility, making it easier to maintain, test, and extend. The project adheres to best practices for state management, component design, and code structure, ensuring that the app remains scalable and maintainable as it grows.
 
+### Video Previews
 ---
+| **Video**                | **Preview Image**                                           | **Link**                                                    |
+|--------------------------|-------------------------------------------------------------|-------------------------------------------------------------|
+| Overall Preview          | ![Overall Preview](https://img.youtube.com/vi/3NA6pqrUkiA/hqdefault.jpg) | [Watch Video](https://youtube.com/shorts/3NA6pqrUkiA?feature=share) |
+| Ticket Screen Preview    | ![Ticket Screen](https://img.youtube.com/vi/cS91_n0GT3Y/hqdefault.jpg) | [Watch Video](https://youtube.com/shorts/cS91_n0GT3Y?feature=share) |
+| Main Tickets Screen Preview | ![Main Tickets Screen](https://img.youtube.com/vi/xvY2gQ21zdw/hqdefault.jpg) | [Watch Video](https://www.youtube.com/watch?v=xvY2gQ21zdw) |
 
-## 📸 Screenshots and Videos
-![Home Screen](https://github.com/11sdz/tickets-uni-mobile/blob/master/samples/homescreen.jpg)
-[![Ticket screen](https://img.youtube.com/vi/cS91_n0GT3Y/hqdefault.jpg)](https://youtube.com/shorts/cS91_n0GT3Y?feature=share)
-[![Main Tickets screen](https://img.youtube.com/vi/xvY2gQ21zdw/hqdefault.jpg)](https://www.youtube.com/watch?v=xvY2gQ21zdw)
 
 ---
 
