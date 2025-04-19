@@ -33,8 +33,6 @@ The project is built with a strong focus on modularity, readability, and clean c
 [![Ticket screen](https://img.youtube.com/vi/cS91_n0GT3Y/hqdefault.jpg)](https://youtube.com/shorts/cS91_n0GT3Y?feature=share)
 [![Main Tickets screen](https://img.youtube.com/vi/xvY2gQ21zdw/hqdefault.jpg)](https://www.youtube.com/watch?v=xvY2gQ21zdw)
 
-> 🖼️ Replace `PLACEHOLDER_FOR_*` with actual screenshot URLs or file paths after uploading them to the repo.
-
 ---
 
 ## 🚀 Getting Started
