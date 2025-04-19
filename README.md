@@ -25,7 +25,8 @@ A mobile application designed to improve the accessibility of service tickets fo
 
 ## 📸 Screenshots and Videos
 ![Home Screen](https://github.com/11sdz/tickets-uni-mobile/blob/master/samples/homescreen.jpg)
-[![Watch the video](https://img.youtube.com/vi/cS91_n0GT3Y/maxresdefault.jpg)](https://youtube.com/shorts/cS91_n0GT3Y?feature=share)
+[![Watch the video](https://img.youtube.com/vi/cS91_n0GT3Y/hqdefault.jpg)](https://youtube.com/shorts/cS91_n0GT3Y?feature=share)
+[![Watch the video](https://img.youtube.com/vi/cS91_n0GT3Y/hqdefault.jpg)](https://www.youtube.com/watch?v=cS91_n0GT3Y)
 
 > 🖼️ Replace `PLACEHOLDER_FOR_*` with actual screenshot URLs or file paths after uploading them to the repo.
 
