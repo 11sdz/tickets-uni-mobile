@@ -8,7 +8,9 @@ A mobile application designed to improve the accessibility of service tickets fo
 
 - ✅ Developed using **React Native** and **TypeScript**.
 - 🌐 Backend powered by **Node.js** and **Express**.
+ [Service Ticket API](https://github.com/11sdz/service-ticket-api) - The backend API for the service ticket system used by Tickets Uni Mobile.
 - 🧩 Includes a **browser extension** that extracts ticket data from a web system and forwards it to the backend via a REST API.
+ [Tickets Uni Extension](https://github.com/11sdz/tickes-uni-extention) - The browser extension that captures and sends support ticket data to the backend server.
 - 🎯 Designed to be more user-friendly and accessible than the current mobile interface provided by the ticketing system.
 
 ---
@@ -18,18 +20,30 @@ A mobile application designed to improve the accessibility of service tickets fo
 - View service tickets in a clean, modern UI.
 - Automatically sync data from the web system via browser extension.
 - Access detailed ticket info on the go.
-- Dark/light mode styling with intuitive layout.
 - Optimized for field performance and readability.
+- **Map to see locations of active technicians** for better ticket management.
+- **Add comments** and **manage the status of tickets**.
+- **Phone dial linking** for quick contact with customers.
+- **Transfer tickets** between technicians.
+
+To be added:
+- **Shift diary** to see all shifts worked.
+- **Better statistics** for tracking work performance and ticket progress.
 
 ---
 
-## 📸 Screenshots
+## 🧹 Code Quality and Modularity
 
-| Home Screen              | Ticket Details            | Map Integration (Coming Soon)   |
-|--------------------------|---------------------------|----------------------------------|
-| ![Home Screen](https://github.com/11sdz/tickets-uni-mobile/blob/master/samples/homescreen.jpg)| ![Details](PLACEHOLDER_FOR_DETAILS_IMAGE) | ![Map](PLACEHOLDER_FOR_MAP_IMAGE) |
+The project is built with a strong focus on modularity, readability, and clean code practices. The codebase is organized into reusable components, and each module has a single responsibility, making it easier to maintain, test, and extend. The project adheres to best practices for state management, component design, and code structure, ensuring that the app remains scalable and maintainable as it grows.
 
-> 🖼️ Replace `PLACEHOLDER_FOR_*` with actual screenshot URLs or file paths after uploading them to the repo.
+### Video Previews
+---
+| **Video**                | **Preview Image**                                           | **Link**                                                    |
+|--------------------------|-------------------------------------------------------------|-------------------------------------------------------------|
+| Overall Preview          | ![Overall Preview](https://img.youtube.com/vi/3NA6pqrUkiA/hqdefault.jpg) | [Watch Video](https://youtube.com/shorts/3NA6pqrUkiA?feature=share) |
+| Ticket Screen Preview    | ![Ticket Screen](https://img.youtube.com/vi/cS91_n0GT3Y/hqdefault.jpg) | [Watch Video](https://youtube.com/shorts/cS91_n0GT3Y?feature=share) |
+| Main Tickets Screen Preview | ![Main Tickets Screen](https://img.youtube.com/vi/xvY2gQ21zdw/hqdefault.jpg) | [Watch Video](https://www.youtube.com/watch?v=xvY2gQ21zdw) |
+
 
 ---
 
