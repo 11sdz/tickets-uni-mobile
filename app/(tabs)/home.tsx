@@ -23,7 +23,7 @@ const Home = () => {
                 lastName={userData?.lastName}
             />
             <ShiftCard />
-            {/* {userData?._id && <LocationComponent userId={userData?._id} />} */}
+            {userData?._id && <LocationComponent userId={userData?._id} />}
             <View style={styles.dashboardCard}>
                 <Text style={styles.title}>מפת נוכחות:</Text>
                 <MapLocationsView />
@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: Colors.colors.background,
         padding: Spacing.spacing.m,
+        direction: "rtl",
     },dashboardCard: {
         marginTop: Spacing.spacing.m,
         backgroundColor: "white",

@@ -76,9 +76,7 @@ const LocationComponent = ({ userId }: UserLocationProps) => {
     }, [permission]);
 
     return (
-        <View>
-            <Text>Location Component</Text>
-        </View>
+null
     ); // This component doesn't need to render anything
 };
 

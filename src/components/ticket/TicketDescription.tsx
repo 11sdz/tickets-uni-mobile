@@ -37,15 +37,15 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: "row",
         justifyContent:'flex-start',
-        direction: "rtl",
     },
     body: {
         ...Typography.typography.body,
         fontFamily: "NotoSerif-Regular",
-        textAlign:'left',
+        textAlign:'left'
     },
     field: {
         ...Typography.typography.subheading,
         fontFamily: "Rubik-SemiBold",
+        textAlign:'left'
     },
 });

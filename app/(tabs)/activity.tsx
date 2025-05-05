@@ -7,7 +7,7 @@ import { Colors, Spacing } from "../../src/styles";
 import Button from "../../src/components/buttons/Button";
 import { FlatList } from "react-native-gesture-handler";
 import TicketCard from "../../src/components/ticket/TicketCard";
-import { router } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 import EmptyList from "../../src/components/ticket/EmptyList";
 import ListHeader from "../../src/components/ticket/ListHeader";
 import ListFooter from "../../src/components/ticket/ListFooter";
@@ -62,6 +62,13 @@ const ActivityScreen = () => {
             setFilteredTickets(filtered);
         }
     }, [ticketData, statusFilter]);
+    
+
+   useFocusEffect(
+        React.useCallback(() => {
+            handleGetTickets();
+        }, [])
+    ); // Fetch tickets when the screen is focused
 
     return (
         <View style={styles.container}>
@@ -111,6 +118,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: Colors.colors.background,
         padding: Spacing.spacing.m,
+        direction: "rtl",
     },
     listContainer: {
         flex: 1,

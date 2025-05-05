@@ -1,12 +1,7 @@
-export function formatTimeElapsed(start: Date): string {
-    // Function to format elapsed time since start date
-    const now = new Date();
-    const elapsed = Math.floor((now.getTime() - start.getTime()) / 1000); // Elapsed time in seconds
-
-    const hours = Math.floor(elapsed / 3600);
-    const minutes = Math.floor((elapsed % 3600) / 60);
-    const seconds = elapsed % 60;
-
-    return `${hours}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-    // You can adjust the format as needed
-}
+export const formatTimeElapsed = (seconds: number): string => {
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = seconds % 60;
+    return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  };
+  

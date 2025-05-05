@@ -34,7 +34,6 @@ export const useRadialMenu = (ticketId: string | undefined) => {
                         updateData: { status: statusMap[type] },
                     })
                 );
-                router.back(); // Navigate back after action
                 setShowRadialMenu(false);
                 break;
             }

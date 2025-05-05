@@ -132,6 +132,7 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: Spacing.spacing.m,
         backgroundColor: Colors.colors.background,
+        direction: "rtl",
     },
     buttonsContainer: {
         flexDirection: "row",

@@ -66,6 +66,7 @@ const TicketCard = ({ ticketData, onPress }: TicketCardProps) => {
                     {ticketData.generatedTitle}
                 </Text>
             </View>
+            <Text style={styles.location}>{ticketData.personalName}</Text>
             <Text style={styles.location}>מיקום: {locationText}</Text>
             <Text style={styles.number}>מס': {ticketData.title}</Text>
             <PhoneNumbers
@@ -148,8 +149,8 @@ const styles = StyleSheet.create({
         borderRadius: 7,
         alignSelf: 'flex-start',
         position: "absolute",
-        top: Spacing.spacing.s,
-        right: Spacing.spacing.s,
+        bottom: Spacing.spacing.s,
+        left: Spacing.spacing.s,
       },badgeText:{
         ...Typography.typography.small,
         fontFamily: "Rubik-Medium",

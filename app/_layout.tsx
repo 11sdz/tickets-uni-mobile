@@ -26,20 +26,20 @@ const RootLayout = () => {
         "Rubik-ExtraBold": require("../src/assets/fonts/Rubik/Rubik-ExtraBold.ttf"),
     });
 
-    const [isRTLSet, setIsRTLSet] = useState(false);
+    // const [isRTLSet, setIsRTLSet] = useState(false);
 
-    useEffect(() => {
-        const enableRTL = async () => {
-            if (!I18nManager.isRTL && !isRTLSet) {
-                I18nManager.allowRTL(true);
-                I18nManager.forceRTL(true);
+    // useEffect(() => {
+    //     const enableRTL = async () => {
+    //         if (!I18nManager.isRTL && !isRTLSet) {
+    //             I18nManager.allowRTL(true);
+    //             I18nManager.forceRTL(true);
 
-                setIsRTLSet(true); // Mark that RTL is set and avoid further reloads
-            }
-        };
+    //             setIsRTLSet(true); // Mark that RTL is set and avoid further reloads
+    //         }
+    //     };
 
-        enableRTL();
-    }, [isRTLSet]); // Only run when RTL isn't set yet
+    //     enableRTL();
+    // }, [isRTLSet]); // Only run when RTL isn't set yet
 
     if (!fontLoaded) {
         return null;

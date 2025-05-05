@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
           flex: 1,
           backgroundColor: Colors.colors.background,
           padding: Spacing.spacing.m,
+          direction:'rtl',
       },
   header:{
       padding: Spacing.spacing.xs,
